@@ -1,89 +1,58 @@
 const express = require('express');
 const router = express.Router();
-const fetchuser = require('../middleware/fetchuser');
-const Note = require('../models/Note');
-const { body, validationResult } = require('express-validator');
 const RFP = require('../models/RFP')
+const PizZip = require('pizzip');
+const fs = require('fs');
+const path = require('path');
+const Docxtemplater = require('docxtemplater');
 
+// const saveAs = require('file-saver');
 // ROUTE 1: Get All the Notes using: GET "/api/notes/getuser". Login required
-router.get('/fetchallnotes', fetchuser, async (req, res) => {
-    try {
-        const notes = await Note.find({ admin : req.admin.id });
-        res.json(notes)
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send("Internal Server Error");
-    }
-})
 
-
-router.get('/fetchallrfp',async (req,res) => {
-    try {
-        const rfps = await RFP.find()
-        res.json(rfps)
-    }catch (error) {
-        console.error(error.message);
-        res.status(500).send("Internal Server Error");
-    }
-})
-
-router.post('/addnote', fetchuser, [
-    body('title', 'Enter a valid title').isLength({ min: 3 }),
-    body('description', 'Description must be atleast 5 characters').isLength({ min: 5 }),], async (req, res) => {
+router.post('/invoice1', (req, res) => {
+    
+        // Read the file synchronously using fs.readFileSync
+        const content = fs.readFileSync(path.resolve('backend/docfiles', 'input.docx'), 'binary');
+        const zip = new PizZip(content);
+        var doc
         try {
-            const { title, description, tag } = req.body;
-
-            // If there are errors, return Bad request and the errors
-            const errors = validationResult(req);
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-            const note = new Note({
-                title, description, tag, admin: req.admin.id
-            })
-            const savedNote = await note.save()
-
-            res.json(savedNote)
-            // console.log(errors)
-
-        } catch (error) {
-            console.error(error.message);
-            res.status(500).send("Internal Server Error");
+            doc = new Docxtemplater(zip);
+        } catch(error) {
+            // Catch compilation errors (errors caused by the compilation of the template : misplaced tags)
+            console.log(error)
         }
-    })
-
-
-// update an exiting rfp 
-router.put('/updatenotes/:id',fetchuser, async (req,res) => {
-    const {title,description,tag} = req.body
-
-
-    const newNote = {}
-
-    if (title) {
-        newNote.title = title
-    }
-    if (description) {
-        newNote.description = description
-    }
-    if (tag) {
-        newNote.tag = tag
-    }
-
-    let note = await Note.findById(req.params.id)
-    if (!note) {
-        return res.status(400).send("Not found")
-    }
-
-    if(note.admin.toString() !== req.admin.id) {
-        return res.status(401).send("Not allowed")
-    }
-
-    note = await Note.findByIdAndUpdate(req.params.id,{$set : newNote}, {new:true})
-    res.json(note)
-
-
-
-})
+    
+        doc.setData({
+            name : req.body.name,
+            address : req.body.address,
+            amount : req.body.amount
+        });
+        
+        try {
+            // render the document (replace all occurences of {first_name} by John, {last_name} by Doe, ...)
+            doc.render()
+        }
+        catch (error) {
+            // Catch rendering errors (errors relating to the rendering of the template : angularParser throws an error)
+            console.log(error)
+        }
+        
+        var buf = doc.getZip().generate({type: 'nodebuffer'});
+        
+        //buf is a nodejs buffer, you can either write it to a file or do anything else with it.
+        fs.writeFileSync(path.resolve('backend/docfiles', 'output.docx'), buf);
+        res.send(200)
+        // const blob = doc.getZip().generate({
+        //     type: "blob",
+        //     mimeType:
+        //         "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        //     // compression: DEFLATE adds a compression step.
+        //     // For a 50MB output document, expect 500ms additional CPU time
+        //     compression: "DEFLATE",
+        // });
+        // // Output the document using Data-URI
+        // saveAs(blob, "output.docx");
+        
+    });
 
 module.exports = router

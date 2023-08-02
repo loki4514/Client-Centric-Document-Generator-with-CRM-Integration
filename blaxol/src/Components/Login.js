@@ -29,9 +29,9 @@ export default function Login(props) {
           if (json.success) {
             // redirect
 
-            sessionStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('isLoggedIn', 'true');
             // localStorage.setItem('token',json.authtoken)
-            navigate('/home')
+            navigate('/')
             window.location.reload();
           }
           else {
@@ -49,6 +49,7 @@ export default function Login(props) {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
 
       };
+
 
     
   return (
@@ -74,6 +75,10 @@ export default function Login(props) {
         <div className="form-group">
         <button type="submit" className="btn btn-primary" >Submit</button>
         </div>
+        <div className="form-group" id='button'>
+        <button type="reset" className="btn btn-primary" >Forgot Password</button>
+        </div>
+        
     </form>
     </div>
     </div>

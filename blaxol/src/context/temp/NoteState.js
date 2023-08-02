@@ -8,7 +8,7 @@ const NoteState = (props) => {
   const [rfp,setRfp] = useState(rfps_inital)
   const getrfps = async () => {
 
-    const response = await fetch('http://localhost:3000/api/simple/fetchallrfp',{
+    const response = await fetch('http://localhost:3000/api/user/fetchallrfp',{
       headers: {
         'Content-Type': 'application/json'
       }

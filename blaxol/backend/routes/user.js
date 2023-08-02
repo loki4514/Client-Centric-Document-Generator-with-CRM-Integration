@@ -107,4 +107,14 @@ router.post('/createuser',[
     }
     });
 
+router.get('/fetchallrfp',async (req,res) => {
+    try {
+        const rfps = await RFP.find()
+            res.json(rfps)
+    }catch (error) {
+            console.error(error.message);
+            res.status(500).send("Internal Server Error");
+        }
+    })
+
 module.exports = router

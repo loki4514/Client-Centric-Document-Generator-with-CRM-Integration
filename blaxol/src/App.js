@@ -10,10 +10,14 @@ import RfpWorker from './Components/RfpWorker'
 import Alert from './Components/Alert';
 import Login from './Components/Login';
 import { useState } from 'react';
+import PageNotFound from './Components/PageNotFound';
+
 
 function App() {
-  const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   const [alert,setAlert] = useState(null)
+  
+  
   const showAlert = (message,type) => {
     setAlert({
       msg:message,
@@ -23,6 +27,9 @@ function App() {
       setAlert(null)
     },2000)
   }
+
+  
+
   return (
     
     <>
@@ -32,20 +39,24 @@ function App() {
     <CreateUser/>
     <Invoice/> */}
     
+
     <NoteState>
         <Router>
           <Navbar />
           <Alert alert={alert} />
           <Routes>
             {/* Display the Login component if the user is not logged in */}
-            {!isLoggedIn && <Route path="/" element={<Login showAlert={showAlert}/>} />}
+            {!isLoggedIn && <Route path="/login" element={<Login showAlert={showAlert}/>} />}
             {/* Display the content if the user is logged in */}
             {isLoggedIn && (
               <>
-                <Route exact path="/home" element={<RfpWorker />} />
-                <Route exact path="/create-admin" element={<CreateAdmin showAlert={showAlert}/>} />
-                <Route exact path="/create-user" element={<CreateUser showAlert={showAlert}/>} />
-                <Route exact path="/invoice" element={<Invoice />} />
+                <Route exact path="/"  element={<RfpWorker  />} />
+                <Route exact path="/create-admin" element={<CreateAdmin  showAlert={showAlert}/>} />
+                <Route exact path="/create-user" element={<CreateUser    showAlert={showAlert}/>} />
+                <Route exact path="/invoice" element={<Invoice   />} />
+                <Route path="*" element={<PageNotFound/>} />
+                
+                
               </>
             )}
           </Routes>

@@ -87,4 +87,18 @@
 .card-body .form-group {
   
   padding-bottom: 20px;
+  
+}
+
+
+/* Move the "Logout" link to the right end of the navbar */
+.d-flex {
+  text-decoration: none;
+  color: #F9F5F6;
+}
+
+#button button{
+  background-color: #e7e7e7; color: black;
+  border : none;
+  
 }
