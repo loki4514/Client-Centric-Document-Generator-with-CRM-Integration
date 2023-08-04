@@ -36,7 +36,12 @@
     transform: rotate(360deg);
   }
 }
-
+.alert {
+  position: relative;
+  z-index: 1;
+  top: 2rem;
+  height: '50px'
+}
 
 .container-admin {
   display: flex;
@@ -101,4 +106,67 @@
   background-color: #e7e7e7; color: black;
   border : none;
   
+}
+
+.project-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 50px auto;
+}
+
+.project-buttons button {
+  width: 100px;
+  height: 100px;
+  margin: 50px; /* Optional margin between buttons */
+
+  /* Add the hover effect */
+  background-color: #F6F4EB; /* Initial background color */
+  transition: background-color 0.3s ease; /* Transition effect */
+
+  /* Center the text within the button */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  font-weight: bold;
+  border: none;
+}
+
+
+.project-buttons button:hover {
+  background-color: #D8D9DA; /* Background color on hover */
+}
+
+.footer{
+  display: flex;
+  justify-content: center;
+
+}
+
+.footer button{
+  margin: 100px;
+  width: 50px;
+  height: 50px;
+  border-radius : 30px;
+}
+
+.Letter {
+  display: flex;
+  justify-content: center;
+  text-align: justify;
+
+}
+
+.Letter textarea{
+  width: 50rem;
+  height: 30rem;
+  
+  border-radius: 5px;
+  border-color: #282c34;
+  text-align: justify;
+  white-space: normal;
+}
+
+textarea{
+  text-align: justify;
 }

@@ -11,6 +11,9 @@ import Alert from './Components/Alert';
 import Login from './Components/Login';
 import { useState } from 'react';
 import PageNotFound from './Components/PageNotFound';
+import Proposal1 from './Components/Proposal1';
+import Proposal2 from './Components/Proposal2';
+import Receipt from './Components/Receipt';
 
 
 function App() {
@@ -25,7 +28,7 @@ function App() {
     })
     setTimeout(() => {
       setAlert(null)
-    },2000)
+    },5000)
   }
 
   
@@ -55,6 +58,10 @@ function App() {
                 <Route exact path="/create-user" element={<CreateUser    showAlert={showAlert}/>} />
                 <Route exact path="/invoice" element={<Invoice   />} />
                 <Route path="*" element={<PageNotFound/>} />
+                <Route exact path="/generate1" element={<Proposal1  showAlert={showAlert}/>} />
+                <Route exact path="/generate2" element={<Proposal2    showAlert={showAlert}/>} />
+                <Route exact path="/generate3" element={<Receipt  showAlert={showAlert}/>} />
+
                 
                 
               </>
