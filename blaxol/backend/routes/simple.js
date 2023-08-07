@@ -290,6 +290,10 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
         letter_heading.addLineBreak()
 
 
+// main body of the document
+
+
+
 
 
 

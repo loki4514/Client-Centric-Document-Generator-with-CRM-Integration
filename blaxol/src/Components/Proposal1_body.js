@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import FieldEntry from './FieldEntry'
+import EditForm from './EditForm'
 
 export default function Proposal1_body(props) {
   // const [agenda,setagenda] = useState([])
@@ -18,6 +19,14 @@ export default function Proposal1_body(props) {
 
   }
 
+  const edit_item = (i) => {
+    <EditForm setagenda={props.setagenda} setshowform={setshowform} agenda = {props.agenda} i = {i}/>
+    console.log("i ain't iing",i)
+    console.log(props.agenda[i])
+  }
+
+
+
 
 
   return (
@@ -26,12 +35,13 @@ export default function Proposal1_body(props) {
     {props.agenda.map((item,i) => {
 
       return <div>
-        {/* <button onClick={() => edit_item(i)}>edit</button> */}
-        <button onClick={() => delete_item(i)}>delete</button>
+        <button onClick={() => edit_item(i)}>Edit</button>
+        <button onClick={() => delete_item(i)}>Delete</button>
         <h2>{item.heading}</h2>
         <p>{item.para}</p>
       </div>
     })}
+    {console.log(props.agenda)}
       {showform ? <FieldEntry setagenda={props.setagenda} setshowform={setshowform} agenda = {props.agenda}/>:null}
     </>
   )
