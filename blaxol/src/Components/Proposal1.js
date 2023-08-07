@@ -42,7 +42,7 @@ export default function Proposal1(props) {
       headers : {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(info,agenda)
+      body: JSON.stringify({info,agenda}),
     }) 
     if (response.ok) {
       props.showAlert('Successfully generated the document.', 'success');
@@ -50,7 +50,7 @@ export default function Proposal1(props) {
       // You may handle the response data here if needed
     } else {
       // Handle the case when the response is not OK
-      props.showAlert('Failed to generate the document.', 'error');
+      props.showAlert('Failed to generate the document.', 'danger');
     }
   }
     catch(error) {
@@ -59,8 +59,11 @@ export default function Proposal1(props) {
   }
 
 const change = async (e) => {
+  console.log("in change in proposal",agenda)
     const { name, value } = e.target;
     setInfo({ ...info, [name]: value });
+    // setagenda({...agenda,[e.target.name]:[e.traget.value]})
+
     setdisable()
   
     if (name === 'rfp') {

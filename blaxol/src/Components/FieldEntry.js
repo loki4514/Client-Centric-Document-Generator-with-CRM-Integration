@@ -3,7 +3,8 @@ import React,{useState} from 'react'
 export default function FieldEntry(props) {
     const [input, setinput] = useState({ heading: "", para: "" })
 
-    const submit = () => {
+    const submit = (e) => {
+        e.preventDefault();
         props.setagenda([...props.agenda,input]) // adding elements old and new array
         setinput({ heading: "", para: "" }) // again
         props.setshowform(false)

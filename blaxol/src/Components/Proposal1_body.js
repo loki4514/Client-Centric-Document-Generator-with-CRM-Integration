@@ -6,6 +6,9 @@ export default function Proposal1_body(props) {
   // const [agenda,setagenda] = useState([])
 
   const [showform,setshowform] = useState(false)
+  const [showeditform,setshoweditform] = useState(false) 
+  const [i, seti] = useState(null)
+  
   const click = () => {
     setshowform(true)
     
@@ -20,9 +23,11 @@ export default function Proposal1_body(props) {
   }
 
   const edit_item = (i) => {
-    <EditForm setagenda={props.setagenda} setshowform={setshowform} agenda = {props.agenda} i = {i}/>
     console.log("i ain't iing",i)
     console.log(props.agenda[i])
+    seti(i)
+    setshoweditform(true)
+
   }
 
 
@@ -43,6 +48,7 @@ export default function Proposal1_body(props) {
     })}
     {console.log(props.agenda)}
       {showform ? <FieldEntry setagenda={props.setagenda} setshowform={setshowform} agenda = {props.agenda}/>:null}
+      {showeditform ? <EditForm setagenda={props.setagenda}  setshoweditform={setshoweditform} agenda={props.agenda} i={i}/>: null}
     </>
   )
 }

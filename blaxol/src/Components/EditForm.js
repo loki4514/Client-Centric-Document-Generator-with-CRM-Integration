@@ -1,18 +1,28 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
 export default function EditForm(props) {
     const [input, setinput] = useState({ heading: "", para: "" })
+    console.log("hello everynyan",props.agenda[props.i])
 
-    const submit = () => {
-        props.setagenda([...props.agenda,input]) // adding elements old and new array
-        setinput({ heading: "", para: "" }) // again
-        // props.setshowform(false)
+    useEffect(() => {
+        setinput({
+          heading: props.agenda[props.i].heading,
+          para: props.agenda[props.i].para,
+        });
+      }, [props.i, props.agenda]);
+
+    const submit = (e) => {
+        e.preventDefault();
+        const updatedAgenda = [
+            ...props.agenda.slice(0, props.i),
+            input,
+            ...props.agenda.slice(props.i + 1),
+        ];
+        props.setagenda(updatedAgenda);
+        setinput({ heading: '', para: '' });
+        props.setshoweditform(false);
     }
-    setinput({
-        heading : props.agenda[props.i].heading,
-        para : props.agenda[props.i].para
-        }
-        )
+    
     const onchange = (e) => {
         
         console.log("prop ain't proping",props.agenda[props.i])
@@ -25,11 +35,11 @@ export default function EditForm(props) {
             <form onSubmit={submit}>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1">RFP</label>
-                    <input type="text" name='heading' value={input.heading} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter RFP" required />
+                    <input type="text" name='heading' value={input.heading} onChange={onchange} className="form-control"  aria-describedby="emailHelp" placeholder="Enter RFP" required />
                 </div>
                 <div className="Letter" >
                     <textarea type="text" cols={100} rows={8} style={{ textAlign: 'justify' }}
-                        className="form-control" name='para' value={input.para} onChange={onchange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Letter Here" />
+                        className="form-control" name='para' value={input.para} onChange={onchange} aria-describedby="emailHelp" placeholder="Enter Your Letter Here" />
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>

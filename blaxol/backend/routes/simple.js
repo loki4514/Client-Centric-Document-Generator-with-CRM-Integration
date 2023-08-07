@@ -282,12 +282,15 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
 
         letter_body = docx.createP()
         letter_body.options.align = 'justify'
-        letter_body.addText(req.body.letter.replace(/\s+/g, ' '),{
+        letter_body.addText(req.body.letter,{
             color : '4A55A2',
             font_face: 'IBM Plex Sans', 
             font_size: 12,
         })
         letter_heading.addLineBreak()
+
+        // req.body.agenda
+        
 
 
 // main body of the document
@@ -318,8 +321,10 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
         const out = fs.createWriteStream('output.docx')
         docx.generate(out);
         res.sendStatus(200);
+        console.log(req.body.agenda)
     } catch (error) {
-        console.error('Error generating document:', error);
+        console.log('Error generating document:', error);
+        console.log("doc",error)
         res.sendStatus(500);
     }
 });
