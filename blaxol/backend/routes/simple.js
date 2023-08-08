@@ -26,19 +26,22 @@ const formatDate = (dateString) => {
 
 
 router.post('/invoice1', async (req, res) => {
+    console.log(req.body); 
+    console.log(req.body.info.project_name)
+    console.log(req.body.agenda)
     try {
         // const content = fs.readFileSync(path.resolve('backend/docfiles', 'input.docx'), 'binary');
         // const zip = new PizZip(content);
         // const doc = new Docxtemplater(zip);
 
         // doc.setData({
-        //     project_name: req.body.project_name,
-        //     spoc: req.body.spoc,
-        //     rfp: req.body.rfp,
-        //     date: req.body.date,
-        //     client_name: req.body.client_name,
-        //     district: req.body.district,
-        //     city: req.body.city,
+        //     project_name: req.body.info.project_name,
+        //     spoc: req.body.info.spoc,
+        //     rfp: req.body.info.rfp,
+        //     date: req.body.info.date,
+        //     client_name: req.body.info.client_name,
+        //     district: req.body.info.district,
+        //     city: req.body.info.city,
         // });
 
         // doc.render();
@@ -56,7 +59,7 @@ router.post('/invoice1', async (req, res) => {
         // // const finalContent = Buffer.from(newParagraph.generate());
 
         // fs.writeFileSync(path.resolve('backend/docfiles', 'output.docx'), updatedContent);
-const text = `This proposal and contract are the property of Blaxol Risensi LLP (“Blaxol”) and must not be disclosed outside the family of ${req.body.client_name} or be duplicated, used, or disclosed—in whole or in part—for any purpose other than to evaluate this proposal. If a contract is awarded to Blaxol as a result of, or in connection with, this proposal, the Promoters shall have the right to duplicate, use, or disclose the data to the extent provided in the resulting contract and subject to the limitations of the Privacy Policy and other applicable bylaws. This proposal contains trade secrets and proprietary commercial or financial information, and information of a personal nature that is exempt from disclosure under OPRAA and other applicable laws.Accordingly, no portion of this document should be released without consulting BLAXOL. This information is contingent on the Parties reaching mutually agreeable terms and conditions and upon acceptance of any limitations described herein`
+const text = `This proposal and contract are the property of Blaxol Risensi LLP (“Blaxol”) and must not be disclosed outside the family of ${req.body.info.client_name} or be duplicated, used, or disclosed—in whole or in part—for any purpose other than to evaluate this proposal. If a contract is awarded to Blaxol as a result of, or in connection with, this proposal, the Promoters shall have the right to duplicate, use, or disclose the data to the extent provided in the resulting contract and subject to the limitations of the Privacy Policy and other applicable bylaws. This proposal contains trade secrets and proprietary commercial or financial information, and information of a personal nature that is exempt from disclosure under OPRAA and other applicable laws.Accordingly, no portion of this document should be released without consulting BLAXOL. This information is contingent on the Parties reaching mutually agreeable terms and conditions and upon acceptance of any limitations described herein`
         const docx = officegen('docx');
 
     // Create a header with the specified properties
@@ -100,7 +103,7 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
         front_page.addLineBreak();
 
 // projec name
-        front_page.addText(req.body.project_name,{
+        front_page.addText(req.body.info.project_name,{
             color : '4A55A2',
             bold : true,
             font_face: 'IBM Plex Sans', 
@@ -131,7 +134,7 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
 
 
 // proposal name
-        front_page.addText(`Proposal for: ${req.body.spoc}`,{
+        front_page.addText(`Proposal for: ${req.body.info.spoc}`,{
             color : '4A55A2',
             font_face: 'IBM Plex Sans', 
             font_size: 14
@@ -140,7 +143,7 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
         front_page.addLineBreak();
 
 // rfp 
-        front_page.addText(req.body.rfp,{
+        front_page.addText(req.body.info.rfp,{
             color : '4A55A2',
             font_face: 'IBM Plex Sans', 
             font_size: 14
@@ -157,7 +160,7 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
         front_page.addLineBreak();
 
 
-        front_page.addText(formatDate(req.body.date),{
+        front_page.addText(formatDate(req.body.info.date),{
             color : '4A55A2',
             font_face: 'IBM Plex Sans', 
             font_size: 14
@@ -217,7 +220,7 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
         address.addLineBreak();
 
         address1 = docx.createP()
-        address1.addText(formatDate(req.body.date),{
+        address1.addText(formatDate(req.body.info.date),{
             color : '4A55A2',
             font_face: 'IBM Plex Sans', 
             font_size: 12
@@ -226,7 +229,7 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
         address1.addLineBreak();
         address1.addLineBreak();
 
-        address1.addText(`Attn: ${req.body.spoc}`,{
+        address1.addText(`Attn: ${req.body.info.spoc}`,{
             color : '4A55A2',
             font_face: 'IBM Plex Sans', 
             font_size: 12
@@ -234,7 +237,7 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
 
         address1.addLineBreak();
 
-        address1.addText(`${req.body.client_name}`,{
+        address1.addText(`${req.body.info.client_name}`,{
             color : '4A55A2',
             font_face: 'IBM Plex Sans', 
             font_size: 12
@@ -242,7 +245,7 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
 
         address1.addLineBreak();
 
-        address1.addText(`${req.body.district}`,{
+        address1.addText(`${req.body.info.district}`,{
             color : '4A55A2',
             font_face: 'IBM Plex Sans', 
             font_size: 12
@@ -250,7 +253,7 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
 
         address1.addLineBreak();
 
-        address1.addText(`${req.body.city}`,{
+        address1.addText(`${req.body.info.city}`,{
             color : '4A55A2',
             font_face: 'IBM Plex Sans', 
             font_size: 12
@@ -282,14 +285,42 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
 
         letter_body = docx.createP()
         letter_body.options.align = 'justify'
-        letter_body.addText(req.body.letter,{
+        letter_body.addText(req.body.info.letter,{
             color : '4A55A2',
             font_face: 'IBM Plex Sans', 
             font_size: 12,
         })
         letter_heading.addLineBreak()
 
-        // req.body.agenda
+        // req.body.info.agenda
+
+
+
+        letter_heading.addPageBreak()
+        // adding actual docx body 
+        for (let i = 0; i < req.body.agenda.length; i++) {
+            body_heading = docx.createP()
+
+
+            body_heading.addText(`${i+1.0} ${req.body.agenda[i].heading}`,{
+                color : '4A55A2',
+                font_face: 'IBM Plex Sans', 
+                font_size: 14,
+                bold : true
+                
+            })
+            body_heading.addLineBreak()
+
+            letter_body = docx.createP()
+            letter_body.options.align = 'justify'
+            letter_body.addText(req.body.agenda[i].para,{
+                color : '4A55A2',
+                font_face: 'IBM Plex Sans', 
+                font_size: 12,
+            })
+            letter_heading.addLineBreak()
+          }
+        
         
 
 
@@ -321,7 +352,7 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
         const out = fs.createWriteStream('output.docx')
         docx.generate(out);
         res.sendStatus(200);
-        console.log(req.body.agenda)
+        
     } catch (error) {
         console.log('Error generating document:', error);
         console.log("doc",error)

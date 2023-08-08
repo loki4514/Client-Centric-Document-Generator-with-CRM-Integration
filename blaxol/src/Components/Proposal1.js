@@ -36,14 +36,19 @@ export default function Proposal1(props) {
   
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const data = {
+      info: info,
+      agenda: agenda
+    };
     try {
       const response = await fetch('http://localhost:3000/api/simple/invoice1',{
       method : 'POST',
       headers : {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({info,agenda}),
+      body: JSON.stringify(data),
     }) 
+    console.log(data)
     if (response.ok) {
       props.showAlert('Successfully generated the document.', 'success');
       window.location.reload()

@@ -170,3 +170,61 @@
 textarea{
   text-align: justify;
 }
+
+/* style for letter/document body */
+.doc-body {
+  display: flex;
+  justify-content: center;
+  
+}
+
+.doc-buttons {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.doc-buttons button {
+  /* width: 9rem;
+  height: 9rem; */
+  height: 60px;
+  margin: 20px;
+  border-radius: 30px;
+  border: none
+}
+
+.actual-document {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  margin-top: 30px;
+  border: 1px solid;
+  border-radius: 50px;
+  padding: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  box-shadow: 5px 10px;
+}
+
+
+.actual-document h3 {
+  margin-left: 50px;
+}
+.actual-document p {
+  text-align:justify;
+  margin: 0px 50px 0px 50px ;
+  
+}
+
+.actual-document button {
+  display: inline-block;
+  margin: 0px 5px 0px 50px;
+  height: 50px;
+  width: 70px;
+  border-radius: 30px;
+  border: none;
+}
+
+
+

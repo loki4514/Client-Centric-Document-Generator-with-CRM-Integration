@@ -31,17 +31,21 @@ export default function EditForm(props) {
     }
   return (
     <div>
-       <div>
+       <div className='doc-body'>
             <form onSubmit={submit}>
                 <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">RFP</label>
+                    <label htmlFor="exampleInputEmail1"></label>
                     <input type="text" name='heading' value={input.heading} onChange={onchange} className="form-control"  aria-describedby="emailHelp" placeholder="Enter RFP" required />
                 </div>
+                <br></br>
                 <div className="Letter" >
                     <textarea type="text" cols={100} rows={8} style={{ textAlign: 'justify' }}
                         className="form-control" name='para' value={input.para} onChange={onchange} aria-describedby="emailHelp" placeholder="Enter Your Letter Here" />
                 </div>
+                <br></br>
+                <div className='form-group'>
                 <button type="submit" className="btn btn-primary">Submit</button>
+                </div>
             </form>
         </div>
     </div>

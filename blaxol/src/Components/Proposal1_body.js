@@ -36,14 +36,26 @@ export default function Proposal1_body(props) {
 
   return (
     <>
-    <button onClick={click}>Adds Heading and Paragraph</button>
+
+<div className='doc-buttons'>
+    <button onClick={click}>Generates Heading and Paragraph</button>
+    <br></br>
+    <button >Generates Heading, Sub-Heading and Paragraph</button>
+</div>
     {props.agenda.map((item,i) => {
 
-      return <div>
-        <button onClick={() => edit_item(i)}>Edit</button>
-        <button onClick={() => delete_item(i)}>Delete</button>
-        <h2>{item.heading}</h2>
+      return <div className='actual-document'>
+        <div className='for-border'>
+        <div>
+        <h3>{i+1.0}.0 {item.heading}</h3>
+        <br></br>
         <p>{item.para}</p>
+        </div>
+        <br/>
+        
+        <button style={{backgroundColor : '#A2FF86'}} onClick={() => edit_item(i)}>Edit</button>
+        <button style={{backgroundColor : '#F24C3D'}}  onClick={() => delete_item(i)}>Delete</button>
+      </div>
       </div>
     })}
     {console.log(props.agenda)}

@@ -14,17 +14,22 @@ export default function FieldEntry(props) {
         setinput({ ...input, [e.target.name]: e.target.value })
     }
     return (
-        <div>
+        <div className='doc-body'>
             <form onSubmit={submit}>
+                
                 <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">RFP</label>
-                    <input type="text" name='heading' value={input.heading} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter RFP" required />
+                    <label htmlFor="exampleInputEmail1"></label>
+                    <input type="text" name='heading' value={input.heading} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Heading" required />
                 </div>
+                <br></br>
                 <div className="Letter" >
                     <textarea type="text" cols={100} rows={8} style={{ textAlign: 'justify' }}
-                        className="form-control" name='para' value={input.para} onChange={onchange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Letter Here" />
+                        className="form-control" name='para' value={input.para} onChange={onchange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Body" />
                 </div>
+                <br></br>
+                <div className='form-group'>
                 <button type="submit" className="btn btn-primary">Submit</button>
+                </div>
             </form>
         </div>
     )
