@@ -22,11 +22,11 @@ const formatDate = (dateString) => {
 
     const formattedDate = `${months[month]} ${day}, ${year}`;
     return formattedDate;
-  }
+}
 
 
 router.post('/invoice1', async (req, res) => {
-    console.log(req.body); 
+    console.log(req.body);
     console.log(req.body.info.project_name)
     console.log(req.body.agenda)
     try {
@@ -59,10 +59,10 @@ router.post('/invoice1', async (req, res) => {
         // // const finalContent = Buffer.from(newParagraph.generate());
 
         // fs.writeFileSync(path.resolve('backend/docfiles', 'output.docx'), updatedContent);
-const text = `This proposal and contract are the property of Blaxol Risensi LLP (“Blaxol”) and must not be disclosed outside the family of ${req.body.info.client_name} or be duplicated, used, or disclosed—in whole or in part—for any purpose other than to evaluate this proposal. If a contract is awarded to Blaxol as a result of, or in connection with, this proposal, the Promoters shall have the right to duplicate, use, or disclose the data to the extent provided in the resulting contract and subject to the limitations of the Privacy Policy and other applicable bylaws. This proposal contains trade secrets and proprietary commercial or financial information, and information of a personal nature that is exempt from disclosure under OPRAA and other applicable laws.Accordingly, no portion of this document should be released without consulting BLAXOL. This information is contingent on the Parties reaching mutually agreeable terms and conditions and upon acceptance of any limitations described herein`
+        const text = `This proposal and contract are the property of Blaxol Risensi LLP (“Blaxol”) and must not be disclosed outside the family of ${req.body.info.client_name} or be duplicated, used, or disclosed—in whole or in part—for any purpose other than to evaluate this proposal. If a contract is awarded to Blaxol as a result of, or in connection with, this proposal, the Promoters shall have the right to duplicate, use, or disclose the data to the extent provided in the resulting contract and subject to the limitations of the Privacy Policy and other applicable bylaws. This proposal contains trade secrets and proprietary commercial or financial information, and information of a personal nature that is exempt from disclosure under OPRAA and other applicable laws.Accordingly, no portion of this document should be released without consulting BLAXOL. This information is contingent on the Parties reaching mutually agreeable terms and conditions and upon acceptance of any limitations described herein`
         const docx = officegen('docx');
 
-    // Create a header with the specified properties
+        // Create a header with the specified properties
         const header = docx.getHeader().createP();
         header.options.align = 'right'
         header.addText('STRICTLY CONFIDENTIAL', {
@@ -93,20 +93,20 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
 
         const front_page = docx.createP()
 
-        front_page.addText('Blaxol Risensi LLP',{
-            color : '4A55A2',
-            bold : true,
-            font_face: 'IBM Plex Sans', 
+        front_page.addText('Blaxol Risensi LLP', {
+            color: '4A55A2',
+            bold: true,
+            font_face: 'IBM Plex Sans',
             font_size: 14
         })
 
         front_page.addLineBreak();
 
-// projec name
-        front_page.addText(req.body.info.project_name,{
-            color : '4A55A2',
-            bold : true,
-            font_face: 'IBM Plex Sans', 
+        // projec name
+        front_page.addText(req.body.info.project_name, {
+            color: '4A55A2',
+            bold: true,
+            font_face: 'IBM Plex Sans',
             font_size: 24
         })
 
@@ -114,9 +114,9 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
 
 
 
-        front_page.addText('Consulting Services Engagement Letter,',{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        front_page.addText('Consulting Services Engagement Letter,', {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 14
         })
 
@@ -124,71 +124,71 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
 
 
 
-        front_page.addText('Rules for Engagement',{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        front_page.addText('Rules for Engagement', {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 14
         })
 
         front_page.addLineBreak();
 
 
-// proposal name
-        front_page.addText(`Proposal for: ${req.body.info.spoc}`,{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        // proposal name
+        front_page.addText(`Proposal for: ${req.body.info.spoc}`, {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 14
         })
 
         front_page.addLineBreak();
 
-// rfp 
-        front_page.addText(req.body.info.rfp,{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        // rfp 
+        front_page.addText(req.body.info.rfp, {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 14
         })
 
         front_page.addLineBreak();
 
-        front_page.addText('® Blaxol Risensi LLP (A Member of Blaxol LLC)',{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        front_page.addText('® Blaxol Risensi LLP (A Member of Blaxol LLC)', {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 14
         })
 
         front_page.addLineBreak();
 
 
-        front_page.addText(formatDate(req.body.info.date),{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        front_page.addText(formatDate(req.body.info.date), {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 14
         })
 
         front_page.addLineBreak();
 
-        front_page.addText('ENG - BLR',{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        front_page.addText('ENG - BLR', {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 14
         })
 
         front_page.addLineBreak();
         front_page.addLineBreak();
         front_page.addLineBreak();
-        
+
         image1 = docx.createP()
         image1.options.align = 'right'
-        image1.addImage(path.resolve('backend/docfiles', 'Picture1.png'), {cx: 300, cy: 200})
+        image1.addImage(path.resolve('backend/docfiles', 'Picture1.png'), { cx: 300, cy: 200 })
 
         image1.addLineBreak()
 
-        
+
         pObj = docx.createP()
         pObj.options.align = 'justify'
-        pObj.addText(text,{
-            font_face: 'Calibri', 
+        pObj.addText(text, {
+            font_face: 'Calibri',
             font_size: 9.5
 
         })
@@ -197,134 +197,234 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
 
         address = docx.createP()
         address.options.align = 'right'
-        address.addText('#30, 2 nd Floor, 4 th Main Road,',{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        address.addText('#30, 2 nd Floor, 4 th Main Road,', {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 12
         })
 
         address.addLineBreak();
-        address.addText('Jayanagar 7th Block, Bengaluru,',{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        address.addText('Jayanagar 7th Block, Bengaluru,', {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 12
         })
 
         address.addLineBreak();
-        address.addText('Karnataka, India 560070',{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        address.addText('Karnataka, India 560070', {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 12
         })
 
         address.addLineBreak();
 
         address1 = docx.createP()
-        address1.addText(formatDate(req.body.info.date),{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        address1.addText(formatDate(req.body.info.date), {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 12
         })
 
         address1.addLineBreak();
         address1.addLineBreak();
 
-        address1.addText(`Attn: ${req.body.info.spoc}`,{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        address1.addText(`Attn: ${req.body.info.spoc}`, {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 12
         })
 
         address1.addLineBreak();
 
-        address1.addText(`${req.body.info.client_name}`,{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        address1.addText(`${req.body.info.client_name}`, {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 12
         })
 
         address1.addLineBreak();
 
-        address1.addText(`${req.body.info.district}`,{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        address1.addText(`${req.body.info.district}`, {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 12
         })
 
         address1.addLineBreak();
 
-        address1.addText(`${req.body.info.city}`,{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        address1.addText(`${req.body.info.city}`, {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 12
         })
 
         address1.addLineBreak();
 
-        address1.addText('INDIA',{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        address1.addText('INDIA', {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 12
         })
 
         address1.addLineBreak();
 
 
-// to add letter dummy 
+        // to add letter dummy 
 
         letter_heading = docx.createP()
 
 
-        letter_heading.addText("Subject: Letter of Intent / Declaration and Explanation",{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        letter_heading.addText("Subject: Letter of Intent / Declaration and Explanation", {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 12,
-            underline : true
+            underline: true
         })
         letter_heading.addLineBreak()
 
         letter_body = docx.createP()
         letter_body.options.align = 'justify'
-        letter_body.addText(req.body.info.letter,{
-            color : '4A55A2',
-            font_face: 'IBM Plex Sans', 
+        letter_body.addText(req.body.info.letter, {
+            color: '4A55A2',
+            font_face: 'IBM Plex Sans',
             font_size: 12,
         })
         letter_heading.addLineBreak()
 
         // req.body.info.agenda
 
+        var table = [
+            [{
+                val: "Activity",
+                opts: {
+                    cellColWidth: 2400, // Reduced column width
+                    b: true,
+                    sz: '26', // Reduced font size
+                    fontFamily: "Times New Roman"
+                }
+            }, {
+                val: "Timeline",
+                opts: {
+                    b: true,
+                    sz: '26', // Reduced font size
+                    fontFamily: "Times New Roman",
+                    align: "center",
+                }
+            }, {
+                val: "Professional Fee",
+                opts: {
+                    align: "center",
+                    cellColWidth: 2400, // Reduced column width
+                    b: true,
+                    sz: '26', // Reduced font size
+                    fontFamily: "Times New Roman" // Reduced font size
+                }
+            }, {
+                val: "Reimbursement",
+                opts: {
+                    align: "center",
+                    cellColWidth: 2400, // Reduced column width
+                    b: true,
+                    sz: '26', // Reduced font size
+                    fontFamily: "Times New Roman" // Reduced font size
+                }
+            }, {
+                val: "Government Fees",
+                opts: {
+                    align: "center",
+                    cellColWidth: 2400, // Reduced column width
+                    b: true,
+                    sz: '26', // Reduced font size
+                    fontFamily: "Times New Roman" // Reduced font size
+                }
+            }],
+            [1, 'All grown-ups were once children', "", "", ""],
+            [2, 'there is no harm in putting off a piece of work until another day.', "", "", ""],
+            [3, 'But when it is a matter of baobabs, that always means a catastrophe.', "", "", ""],
+            [4, 'watch out for the baobabs!', "END", "", ""],
+        ];
+        
+        var tableStyle = {
+            tableColWidth: 4261, // Adjusted column width
+            tableSize: 12, // Reduced table font size
+            tableColor: "ada",
+            tableAlign: "left",
+            tableFontFamily: "Times New Roman"
+        };
+        
+        //   var tableStyle = {
+        //     tableColWidth: 4261,
+        //     tableSize: 24,
+        //     tableColor: "ada",
+        //     tableAlign: "left",
+        //     tableFontFamily: "Comic Sans MS",
+        //     spacingBefor: 120, // default is 100
+        //     spacingAfter: 120, // default is 100
+        //     spacingLine: 240, // default is 240
+        //     spacingLineRule: 'atLeast', // default is atLeast
+        //     indent: 100, // table indent, default is 0
+        //     fixedLayout: true, // default is false
+        //     borders: true, // default is false. if true, default border size is 4
+        //     borderSize: 2, // To use this option, the 'borders' must set as true, default is 4
+        //     columns: [{ width: 4261 }, { width: 1 }, { width: 42 }], // Table logical columns
+        //   }
+        docx.createTable (table,tableStyle)
+
+        // const headers = ['Activity', 'Timeline', 'Professional Fee', 'Reimbursement Government Fees'];
+
+// Define table rows
 
 
-        letter_heading.addPageBreak()
+
+        docx.addPageBreak();
         // adding actual docx body 
         for (let i = 0; i < req.body.agenda.length; i++) {
-            body_heading = docx.createP()
+            const body_heading = docx.createP();
 
+            // Add a bullet point
 
-            body_heading.addText(`${i+1.0} ${req.body.agenda[i].heading}`,{
-                color : '4A55A2',
-                font_face: 'IBM Plex Sans', 
+            body_heading.addText(`${(i + 0.0).toFixed(1)}  ${req.body.agenda[i].heading}`, {
+                color: '4A55A2',
+                font_face: 'IBM Plex Sans',
                 font_size: 14,
-                bold : true
-                
-            })
-            body_heading.addLineBreak()
+                bold: true
+            });
+            body_heading.addLineBreak();
 
-            letter_body = docx.createP()
-            letter_body.options.align = 'justify'
-            letter_body.addText(req.body.agenda[i].para,{
-                color : '4A55A2',
-                font_face: 'IBM Plex Sans', 
-                font_size: 12,
-            })
-            letter_heading.addLineBreak()
-          }
-        
-        
+            // Add the paragraph content
+            const letter_body = docx.createP();
+            letter_body.options.align = 'justify';
+            letter_body.addText(req.body.agenda[i].para, {
+                color: '4A55A2',
+                font_face: 'IBM Plex Sans',
+                font_size: 12
+            });
+            letter_body.addLineBreak();
+
+            body_heading1.addText(`${(i + 0.0).toFixed(1)}  ${req.body.agenda[i].heading1}`, {
+                color: '4A55A2',
+                font_face: 'IBM Plex Sans',
+                font_size: 14,
+                bold: true
+            });
+            body_heading1.addLineBreak();
+
+            // Add the paragraph content
+            const letter_body1 = docx.createP();
+            letter_body1.options.align = 'justify';
+            letter_body1.addText(req.body.agenda[i].para1, {
+                color: '4A55A2',
+                font_face: 'IBM Plex Sans',
+                font_size: 12
+            });
+            letter_body1.addLineBreak();
+        }
 
 
-// main body of the document
+
+
+        // main body of the document
 
 
 
@@ -352,15 +452,15 @@ const text = `This proposal and contract are the property of Blaxol Risensi LLP 
         const out = fs.createWriteStream('output.docx')
         docx.generate(out);
         res.sendStatus(200);
-        
+
     } catch (error) {
         console.log('Error generating document:', error);
-        console.log("doc",error)
+        console.log("doc", error)
         res.sendStatus(500);
     }
 });
 
-router.post('/getrfdata',async(req,res) => {
+router.post('/getrfdata', async (req, res) => {
     const rfpData = await RFP.findOne({ rfp: req.body.rfp });
     if (!rfpData) {
         return res.send("User not found,Check RFP once")
