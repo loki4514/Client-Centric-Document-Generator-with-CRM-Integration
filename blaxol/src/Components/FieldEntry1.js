@@ -1,12 +1,14 @@
 import React,{useState} from 'react'
+import SubForm from './SubForm';
 
 export default function FieldEntry1(props) {
-    const [input, setinput] = useState({  heading: "", para: "" , Sub: [{heading1: '',para1: ''}]})
+    const [input, setinput] = useState({heading : "", para : "",sub : []})
+    const [AddSubHeadPara, setAddSubHeadPara] = useState(false)
 
     const submit = (e) => {
         e.preventDefault();
         props.setagenda([...props.agenda,input]) // adding elements old and new array
-        setinput({ heading: "", para: "" , Sub: [{heading1: '',para1: ''}]}) // again
+        setinput({heading : "", para : "", sub : []}) // again
         props.setshowform1(false)
     }
 
@@ -17,34 +19,41 @@ export default function FieldEntry1(props) {
     const deltesubmit = (e) => {
         e.preventDefault();
         props.setshowform1(false)
-        setinput({  heading: "", para: "" , Sub: [{heading1: '',para1: ''}]});
+        setinput({heading : "",para : "", sub : []});
     }
 
     return (
-        <div className='doc-body'>
+        <div className='subsection'>
             <form onSubmit={submit}>
-                
+            
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1"></label>
                     <input type="text" name='heading' value={input.heading} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Heading" required />
                 </div>
                 <br></br>
-                <div className="Letter" >
-                    <textarea type="text" cols={100} rows={8} style={{ textAlign: 'justify' }}
-                        className="form-control" name='para' value={input.para} onChange={onchange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Body" />
-                </div>
-                <br></br>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1"></label>
-                    <input type="text" name='heading1' value={input.heading1} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Sub Heading" required />
-                </div>
-                {console.log("this is sub",input.Sub)}
-                <br></br>
-                <div className="Letter" >
-                    <textarea type="text" cols={100} rows={8} style={{ textAlign: 'justify' }}
-                        className="form-control" name='para1' value={input.para1} onChange={onchange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Sub Body" />
+                    <textarea type="text" name='para' value={input.para} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Paragraph" required />
                 </div>
                 <br></br>
+                
+                {input.sub? input.sub.map((subitem) => {
+                    return <div>
+                        <h3>{subitem.heading}</h3>
+                        <br/>
+                        <p>{subitem.para}</p>
+                        <br/>
+                    </div>
+                }):null}
+                <br/>
+                <br/>
+                {AddSubHeadPara ? <SubForm input = {input} setinput = {setinput} setAddSubHeadPara = {setAddSubHeadPara} /> : null }
+                {console.log('AddSubHeadPara:', AddSubHeadPara)}
+                {console.log('input.sub:', input.sub)}
+                <div className='form-group'>
+                <button type="button" onClick={() => setAddSubHeadPara(true)} className="btn btn-primary">Add Subheading and SubPara</button>
+                
+                <br/>
 
                 <div className='form-group'>
                 <button type="submit" className="btn btn-primary">Submit</button>
@@ -53,7 +62,7 @@ export default function FieldEntry1(props) {
                 <div className='form-group'>
                 <button className="btn btn-danger" onClick={deltesubmit}>Delete Section</button>
                 </div>
-
+            </div>
             </form>
         </div>
     )

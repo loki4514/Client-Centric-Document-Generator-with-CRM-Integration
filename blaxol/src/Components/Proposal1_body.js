@@ -47,17 +47,13 @@ export default function Proposal1_body(props) {
     console.log(props.agenda[i])
     seti(i)
     
-    if (props.agenda[i].hasOwnProperty('Sub')) {
+    if (props.agenda[i].hasOwnProperty('sub')) {
       setshoweditform1(true)
       setshoweditform(false)
       setshoweditform2(false)
     }
 
-    else if (props.agenda[i].hasOwnProperty('Sub1')) {
-      setshoweditform1(false)
-      setshoweditform(false)
-      setshoweditform2(true)
-    }
+    
 
     else {
       setshoweditform(true) 
@@ -90,11 +86,16 @@ export default function Proposal1_body(props) {
         <div>
         <h2> {item.heading}</h2>
         <br></br>
-        <p>{item.para}</p>
-        <h4> {item.heading1}</h4>
-        <br></br>
-        <p>{item.para1}</p>
-        <br></br>
+        <p>{item.para?item.para:null}</p>
+        <br>
+        </br>
+        <h4>{item.sub? item.sub.map((subitem) => {
+         return <div>
+          <h3>{subitem.heading}</h3>
+          <br></br>
+          <p style={{fontWeight : "lighter"}}>{subitem.para}</p>
+          <br/>
+        </div>})  : null}</h4>
         </div>
         <br/>
         

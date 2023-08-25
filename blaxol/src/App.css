@@ -228,3 +228,112 @@ textarea{
 
 
 
+.subsection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+  margin-top: 30px;
+  
+  padding: 50px;
+  margin-left: 50px;
+  margin-right: 50px;
+  
+}
+
+
+.subsection h3 {
+  margin-left: 50px;
+}
+.subsection p {
+  text-align:justify;
+  margin: 0px 50px 0px 50px ;
+  
+}
+
+.subsection input {
+  width: 30rem;
+}
+
+.subsection textarea {
+  width: 50rem;
+  height: 30rem;
+}
+
+
+
+.subsection1 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  
+}
+
+.subsection1 input{
+  width: 30rem;
+}
+
+.subsection1 textarea {
+  width: 50rem;
+  height: 30rem;
+}
+
+
+.table-header th {
+  text-align: center;
+}
+
+.table-header td {
+  text-align: center;
+}
+
+.submit-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 20px; /* Adjust as needed */
+}
+
+.submit-buttons button {
+  height: 50px;
+  border: none;
+  border-radius: 30px;
+  margin: 5px;
+}
+
+.exhibit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top : 50px;
+  flex-direction: column;
+  
+}
+
+.exhibit button {
+   border: none; 
+   border-radius: 30px; 
+   height: 60px;
+  
+}
+
+.exhibit input {
+  margin : 10px;
+}
+
+.submitted-table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #dddddd;
+}
+
+.submitted-table th,
+.submitted-table td {
+  border: 1px solid #dddddd;
+  padding: 18px;
+  text-align: left;
+}
+
+.submitted-table th {
+  background-color: #f2f2f2;
+}

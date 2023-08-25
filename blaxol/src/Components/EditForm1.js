@@ -1,15 +1,15 @@
 import React,{useState,useEffect} from 'react'
 
 export default function EditForm1(props) {
-    const [input, setinput] = useState({ heading: "", para: "" , Sub: [{heading1: '',para1: ''}]})
+    const [input, setinput] = useState({ heading: "" ,para : "", sub: []})
     // console.log("hello everynyan",props.agenda[props.i])
+    const [index,setindex] = useState()
 
     useEffect(() => {
         setinput({
           heading: props.agenda[props.i].heading,
-          para: props.agenda[props.i].para,
-          heading1 : props.agenda[props.i].heading1,
-          para1: props.agenda[props.i].para1
+          para : props.agenda[props.i].para,
+          sub : props.agenda[props.i].sub
         });
       }, [props.i, props.agenda]);
 
@@ -21,16 +21,25 @@ export default function EditForm1(props) {
             ...props.agenda.slice(props.i + 1),
         ];
         props.setagenda(updatedAgenda);
-        setinput({ heading: "", para: "" , Sub: [{heading1: '',para1: ''}]});
+        setinput({ heading: "" , para : "",sub: []});
         props.setshoweditform1(false);
     }
     
-    const onchange = (e) => {
-        
-        console.log("prop ain't proping",props.agenda[props.i])
-        setinput({...input,[e.target.name]:e.target.value})
-        
-    }
+    const onSubChange = (e, subIndex) => {
+        const updatedSub = input.sub.map((subItem, idx) => {
+          if (idx === subIndex) {
+            return { ...subItem, [e.target.name]: e.target.value };
+          }
+          return subItem;
+        });
+    
+        setinput((prevInput) => ({
+          ...prevInput,
+          sub: updatedSub,
+        }));
+      };
+
+
   return (
     <div>
        <div className='doc-body'>
@@ -38,10 +47,29 @@ export default function EditForm1(props) {
                 
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1"></label>
-                    <input type="text" name='heading' value={input.heading} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Heading" required />
+                    <input type="text" name='heading' value={input.heading} onChange={(e) => setinput({ ...input, heading: e.target.value })} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Heading" required />
                 </div>
                 <br></br>
-                <div className="Letter" >
+                <div className="form-group">
+                    <label htmlFor="exampleInputEmail1"></label>
+                    <textarea type="text" name='para' value={input.para} onChange={(e) => setinput({ ...input, para: e.target.value })} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Paragraph" required />
+                </div>
+                <br></br>
+                {input.sub? input.sub.map((subitem, subIndex) => {
+                    return <div className='subsection1'>
+                    <br/>
+                    <div className='form-group'>
+                        <input name = "heading" value = {subitem.heading} onChange={(e) => onSubChange(e, subIndex)} ></input>
+                    </div>
+                    <br/>
+                    <div className='Letter'>
+                        <textarea name = "para" value = {subitem.para} onChange={(e) => onSubChange(e, subIndex)} ></textarea>
+                    </div>
+                    </div>
+                    
+                }):"nothing to print"}
+            {console.log("inside the array of sub won't work",input.sub)}
+                {/* <div className="Letter" >
                     <textarea type="text" cols={100} rows={8} style={{ textAlign: 'justify' }}
                         className="form-control" name='para' value={input.para} onChange={onchange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Body" />
                 </div>
@@ -55,8 +83,8 @@ export default function EditForm1(props) {
                     <textarea type="text" cols={100} rows={8} style={{ textAlign: 'justify' }}
                         className="form-control" name='para1' value={input.para1} onChange={onchange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Sub Body" />
                 </div>
+                <br></br> */}
                 <br></br>
-
                 <div className='form-group'>
                 <button type="submit" className="btn btn-primary">Submit</button>
                 </div>

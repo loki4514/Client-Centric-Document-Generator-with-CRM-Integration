@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 
-export default function Subsection(props) {
+export default function SubForm(props) {
     const [subinput, setsubinput] = useState({ heading: "", para: "" })
 
     const submit = (e) => {
@@ -40,7 +40,6 @@ export default function Subsection(props) {
                     <textarea type="text" cols={100} rows={8} style={{ textAlign: 'justify' }}
                         className="form-control" name='para' value={subinput.para} onChange={onchange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Body" />
                 </div>
-    
                 <br></br>
                 <div className='form-group'>
                 <button  onClick={submit} className="btn btn-primary">Submit Sub-Heading & Para</button>
@@ -50,9 +49,9 @@ export default function Subsection(props) {
                 <button className="btn btn-danger" onClick={deltesubmit}>Delete Sub-Heading & Para</button>
                 </div>
                 <br/>
-                
             </form>
         </div>
     </div>
   )
 }
+

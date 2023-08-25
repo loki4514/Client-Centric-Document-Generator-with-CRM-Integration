@@ -26,7 +26,7 @@ export default function FieldEntry(props) {
                 
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1"></label>
-                    <input type="text" name='heading' value={input.heading} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Heading" required />
+                    <input type="text" name='heading' value={input.heading} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Heading"/>
                 </div>
                 <br></br>
                 <div className="Letter" >

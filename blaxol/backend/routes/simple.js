@@ -29,6 +29,9 @@ router.post('/invoice1', async (req, res) => {
     console.log(req.body);
     console.log(req.body.info.project_name)
     console.log(req.body.agenda)
+
+    const tablearray = req.body.tables
+
     try {
         // const content = fs.readFileSync(path.resolve('backend/docfiles', 'input.docx'), 'binary');
         // const zip = new PizZip(content);
@@ -294,134 +297,320 @@ router.post('/invoice1', async (req, res) => {
 
         // req.body.info.agenda
 
-        var table = [
-            [{
-                val: "Activity",
-                opts: {
-                    cellColWidth: 2400, // Reduced column width
-                    b: true,
-                    sz: '26', // Reduced font size
-                    fontFamily: "Times New Roman"
-                }
-            }, {
-                val: "Timeline",
-                opts: {
-                    b: true,
-                    sz: '26', // Reduced font size
-                    fontFamily: "Times New Roman",
-                    align: "center",
-                }
-            }, {
-                val: "Professional Fee",
-                opts: {
-                    align: "center",
-                    cellColWidth: 2400, // Reduced column width
-                    b: true,
-                    sz: '26', // Reduced font size
-                    fontFamily: "Times New Roman" // Reduced font size
-                }
-            }, {
-                val: "Reimbursement",
-                opts: {
-                    align: "center",
-                    cellColWidth: 2400, // Reduced column width
-                    b: true,
-                    sz: '26', // Reduced font size
-                    fontFamily: "Times New Roman" // Reduced font size
-                }
-            }, {
-                val: "Government Fees",
-                opts: {
-                    align: "center",
-                    cellColWidth: 2400, // Reduced column width
-                    b: true,
-                    sz: '26', // Reduced font size
-                    fontFamily: "Times New Roman" // Reduced font size
-                }
-            }],
-            [1, 'All grown-ups were once children', "", "", ""],
-            [2, 'there is no harm in putting off a piece of work until another day.', "", "", ""],
-            [3, 'But when it is a matter of baobabs, that always means a catastrophe.', "", "", ""],
-            [4, 'watch out for the baobabs!', "END", "", ""],
-        ];
-        
-        var tableStyle = {
-            tableColWidth: 4261, // Adjusted column width
-            tableSize: 12, // Reduced table font size
-            tableColor: "ada",
-            tableAlign: "left",
-            tableFontFamily: "Times New Roman"
-        };
-        
-        //   var tableStyle = {
-        //     tableColWidth: 4261,
-        //     tableSize: 24,
+        // var table = [
+        //     [{
+        //         val: "Activity",
+        //         opts: {
+        //             cellColWidth: 2400, // Reduced column width
+        //             b: true,
+        //             sz: '26', // Reduced font size
+        //             fontFamily: "Times New Roman"
+        //         }
+        //     }, {
+        //         val: "Timeline",
+        //         opts: {
+        //             b: true,
+        //             sz: '26', // Reduced font size
+        //             fontFamily: "Times New Roman",
+        //             align: "center",
+        //         }
+        //     }, {
+        //         val: "Professional Fee",
+        //         opts: {
+        //             align: "center",
+        //             cellColWidth: 2400, // Reduced column width
+        //             b: true,
+        //             sz: '26', // Reduced font size
+        //             fontFamily: "Times New Roman" // Reduced font size
+        //         }
+        //     }, {
+        //         val: "Reimbursement",
+        //         opts: {
+        //             align: "center",
+        //             cellColWidth: 2400, // Reduced column width
+        //             b: true,
+        //             sz: '26', // Reduced font size
+        //             fontFamily: "Times New Roman" // Reduced font size
+        //         }
+        //     }, {
+        //         val: "Government Fees",
+        //         opts: {
+        //             align: "center",
+        //             cellColWidth: 2400, // Reduced column width
+        //             b: true,
+        //             sz: '26', // Reduced font size
+        //             fontFamily: "Times New Roman" // Reduced font size
+        //         }
+        //     }],
+        //     [1, 'All grown-ups were once children', "", "", ""],
+        //     [2, 'there is no harm in putting off a piece of work until another day.', "", "", ""],
+        //     [3, 'But when it is a matter of baobabs, that always means a catastrophe.', "", "", ""],
+        //     [4, 'watch out for the baobabs!', "END", "", ""],
+        // ];
+
+        // var tableStyle = {
+        //     tableColWidth: 4261, // Adjusted column width
+        //     tableSize: 12, // Reduced table font size
         //     tableColor: "ada",
         //     tableAlign: "left",
-        //     tableFontFamily: "Comic Sans MS",
-        //     spacingBefor: 120, // default is 100
-        //     spacingAfter: 120, // default is 100
-        //     spacingLine: 240, // default is 240
-        //     spacingLineRule: 'atLeast', // default is atLeast
-        //     indent: 100, // table indent, default is 0
-        //     fixedLayout: true, // default is false
-        //     borders: true, // default is false. if true, default border size is 4
-        //     borderSize: 2, // To use this option, the 'borders' must set as true, default is 4
-        //     columns: [{ width: 4261 }, { width: 1 }, { width: 42 }], // Table logical columns
-        //   }
-        docx.createTable (table,tableStyle)
+        //     tableFontFamily: "Times New Roman"
+        // };
 
-        // const headers = ['Activity', 'Timeline', 'Professional Fee', 'Reimbursement Government Fees'];
+        // //   var tableStyle = {
+        // //     tableColWidth: 4261,
+        // //     tableSize: 24,
+        // //     tableColor: "ada",
+        // //     tableAlign: "left",
+        // //     tableFontFamily: "Comic Sans MS",
+        // //     spacingBefor: 120, // default is 100
+        // //     spacingAfter: 120, // default is 100
+        // //     spacingLine: 240, // default is 240
+        // //     spacingLineRule: 'atLeast', // default is atLeast
+        // //     indent: 100, // table indent, default is 0
+        // //     fixedLayout: true, // default is false
+        // //     borders: true, // default is false. if true, default border size is 4
+        // //     borderSize: 2, // To use this option, the 'borders' must set as true, default is 4
+        // //     columns: [{ width: 4261 }, { width: 1 }, { width: 42 }], // Table logical columns
+        // //   }
+        // docx.createTable(table, tableStyle)
 
-// Define table rows
+        // // const headers = ['Activity', 'Timeline', 'Professional Fee', 'Reimbursement Government Fees'];
+
+        // // Define table rows
+
+        for (var i = 0; i < tablearray.length; i++) {
+            var keys = Object.keys(tablearray[i][0]);
+            var table = [[]];
+          
+            for (var j = 0; j < keys.length; j++) {
+              var column = {
+                val: keys[j],
+                opts: {
+                  cellColWidth: 2400,
+                  b: true,
+                  sz: '26',
+                  fontFamily: "Times New Roman"
+                }
+              };
+              table[0].push(column);
+            }
+          
+            for (var j = 0; j < tablearray[i].length; j++) {
+              var dataRow = keys.map(key => tablearray[i][j][key]);
+              table.push(dataRow);
+            }
+          
+            var tableStyle = {
+              tableColWidth: 4261,
+              tableSize: 12,
+              tableAlign: "left",
+              tableFontFamily: "Times New Roman"
+            };
+          
+            docx.createTable(table, tableStyle);
+          
+            if (i < tablearray.length - 1) {
+              docx.createP().addText(""); // You should use the appropriate function for your library
+          }
+            
+          }
 
 
 
         docx.addPageBreak();
         // adding actual docx body 
+        // for (let i = 0; i < req.body.agenda.length; i++) {
+
+        //     heading = docx.createListOfNumbers();
+
+        //     if (req.body.agenda[i].heading) {
+        //     heading.addText(`${req.body.agenda[i].heading}`, {
+        //         color: '4A55A2',
+        //         font_face: 'IBM Plex Sans',
+        //         font_size: 12,
+        //         underline: true
+        //     })
+        //     heading.addLineBreak()
+        // }
+
+
+        // if (req.body.agenda[i].para) {
+        //     para = docx.createP()
+        //     para.options.align = 'justify'
+        //     para.addText(req.body.agenda[i].para, {
+        //         color: '4A55A2',
+        //         font_face: 'IBM Plex Sans',
+        //         font_size: 12,
+        //     })
+        //     para.addLineBreak()
+        // }
+
+        //     if (req.body.agenda[i].sub) {
+        //         for (let j = 0; j < req.body.agenda[i].sub.length; j++) {
+        //             sub_heading = docx.createListOfNumbers();
+
+
+        //             sub_heading.addText(`${req.body.agenda[i].sub[j].heading}`, {
+        //                 color: '4A55A2',
+        //                 font_face: 'IBM Plex Sans',
+        //                 font_size: 12,
+        //                 underline: true
+        //             })
+        //             sub_heading.addLineBreak()
+
+        //             sub_para = docx.createP()
+        //             sub_para.options.align = 'justify'
+        //             sub_para.addText(req.body.agenda[i].sub[j].para, {
+        //                 color: '4A55A2',
+        //                 font_face: 'IBM Plex Sans',
+        //                 font_size: 12,
+        //             })
+        //             sub_para.addLineBreak()
+        //             }
+        //         }
+        // }
+
         for (let i = 0; i < req.body.agenda.length; i++) {
-            const body_heading = docx.createP();
-
-            // Add a bullet point
-
-            body_heading.addText(`${(i + 0.0).toFixed(1)}  ${req.body.agenda[i].heading}`, {
+            const currentItem = req.body.agenda[i];
+            const mainHeading = currentItem.heading;
+            const mainBulletText = `${(i + 1.0).toFixed(1)}  ${mainHeading}\n`;
+            const mainPara = docx.createP();
+            mainPara.options.align = 'left';
+            mainPara.addText(mainBulletText, {
                 color: '4A55A2',
                 font_face: 'IBM Plex Sans',
                 font_size: 14,
-                bold: true
-            });
-            body_heading.addLineBreak();
 
-            // Add the paragraph content
-            const letter_body = docx.createP();
-            letter_body.options.align = 'justify';
-            letter_body.addText(req.body.agenda[i].para, {
-                color: '4A55A2',
-                font_face: 'IBM Plex Sans',
-                font_size: 12
             });
-            letter_body.addLineBreak();
 
-            body_heading1.addText(`${(i + 0.0).toFixed(1)}  ${req.body.agenda[i].heading1}`, {
-                color: '4A55A2',
-                font_face: 'IBM Plex Sans',
-                font_size: 14,
-                bold: true
-            });
-            body_heading1.addLineBreak();
+            if (currentItem.para) {
+                const para = docx.createP();
+                para.options.align = 'justify';
+                para.options.indentLeft = 630;
+                //   para.options.indentLeft = 1440;
+                para.addText(currentItem.para, {
+                    color: '4A55A2',
+                    font_face: 'IBM Plex Sans',
+                    font_size: 12,
+                });
 
-            // Add the paragraph content
-            const letter_body1 = docx.createP();
-            letter_body1.options.align = 'justify';
-            letter_body1.addText(req.body.agenda[i].para1, {
-                color: '4A55A2',
-                font_face: 'IBM Plex Sans',
-                font_size: 12
-            });
-            letter_body1.addLineBreak();
+            }
+            docx.createP().addLineBreak();
+
+            if (currentItem.sub) {
+                for (let j = 0; j < currentItem.sub.length; j++) {
+                    const subItem = currentItem.sub[j];
+                    const subHeading = subItem.heading;
+
+                    const subBulletText = `${j + 1.0}.    ${subHeading}\n`;
+                    const subPara = docx.createP();
+                    // subPara.options.indentLeft = 800
+                    subPara.addText(subBulletText, {
+                        color: '4A55A2',
+                        font_face: 'IBM Plex Sans',
+                        font_size: 12,
+
+                    });
+
+                    if (subItem.para) {
+                        const subPara = docx.createP();
+                        subPara.options.align = 'justify';
+                        subPara.options.indentLeft = 630
+                        subPara.addText(subItem.para, {
+                            color: '4A55A2',
+                            font_face: 'IBM Plex Sans',
+                            font_size: 12,
+                        });
+
+                    }
+                    // docx.createP().addLineBreak();
+                }
+                docx.createP().addLineBreak();
+            }
+
         }
 
 
+        docx.addPageBreak()
+
+
+
+
+
+
+
+     // last body of the paragraph
+
+        for (let i = 0; i < req.body.agenda1.length; i++) {
+            const currentItem = req.body.agenda1[i];
+            const mainHeading = currentItem.heading;
+            const mainBulletText = `${(i + 1.0).toFixed(1)}  ${mainHeading}\n`;
+            const mainPara = docx.createP();
+            mainPara.options.align = 'left';
+            mainPara.addText(mainBulletText, {
+                color: '4A55A2',
+                font_face: 'IBM Plex Sans',
+                font_size: 14,
+
+            });
+
+            if (currentItem.para) {
+                const para = docx.createP();
+                para.options.align = 'justify';
+                para.options.indentLeft = 630;
+                //   para.options.indentLeft = 1440;
+                para.addText(currentItem.para, {
+                    color: '4A55A2',
+                    font_face: 'IBM Plex Sans',
+                    font_size: 12,
+                });
+
+            }
+            docx.createP().addLineBreak();
+
+            if (currentItem.sub) {
+                for (let j = 0; j < currentItem.sub.length; j++) {
+                    const subItem = currentItem.sub[j];
+                    const subHeading = subItem.heading;
+
+                    const subBulletText = `${j + 1.0}.    ${subHeading}\n`;
+                    const subPara = docx.createP();
+                    // subPara.options.indentLeft = 800
+                    subPara.addText(subBulletText, {
+                        color: '4A55A2',
+                        font_face: 'IBM Plex Sans',
+                        font_size: 12,
+
+                    });
+
+                    if (subItem.para) {
+                        const subPara = docx.createP();
+                        subPara.options.align = 'justify';
+                        subPara.options.indentLeft = 630
+                        subPara.addText(subItem.para, {
+                            color: '4A55A2',
+                            font_face: 'IBM Plex Sans',
+                            font_size: 12,
+                        });
+
+                    }
+                    // docx.createP().addLineBreak();
+                }
+                docx.createP().addLineBreak();
+            }
+            if (currentItem.para1) {
+                const para = docx.createP();
+                para.options.align = 'justify';
+                para.options.indentLeft = 630;
+                //   para.options.indentLeft = 1440;
+                para.addText(currentItem.para, {
+                    color: '4A55A2',
+                    font_face: 'IBM Plex Sans',
+                    font_size: 12,
+                });
+
+        }
+    }
 
 
         // main body of the document

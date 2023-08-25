@@ -3,13 +3,14 @@ import Proposal1_FrontPage from './Proposal1_FrontPage';
 import Proposal1_letter from './Proposal1_letter';
 import Proposal1_body from './Proposal1_body';
 import Proposal1_last from './Proposal1_last';
+import Proposal1_Exhibit from './Proposal1_Exhibit';
 
 // import noteContext from '../context/temp/noteContext';
 
 
 export default function Proposal1(props) {
   const [page,setpage] = useState(0);
-  
+  <Proposal1_Exhibit/>
 
   // handling page 
 
@@ -18,13 +19,16 @@ export default function Proposal1(props) {
       return <Proposal1_FrontPage info = {info} handleSubmit = {handleSubmit} change = {change}/>
   }
   else if (page === 1){
-      return <Proposal1_letter info = {info} handleSubmit = {handleSubmit} change = {change}/>
+      return <Proposal1_letter info = {info} handleSubmit = {handleSubmit} change = {change} tables = {tables} settables = {settables}/>
   }
   else if (page === 2){
     return <Proposal1_body info = {info} agenda = {agenda} setagenda = {setagenda} handleSubmit = {handleSubmit} change = {change}/>
   }
+  else if (page === 3){
+    return <Proposal1_Exhibit tablecontent = {tablecontent} settablecontent = {settablecontent}/>
+  }
   else {
-    return <Proposal1_last info = {info} handleSubmit = {handleSubmit} change = {change}/>
+    return <Proposal1_last info = {info} agenda1 = {agenda1} setagenda1 = {setagenda1} handleSubmit = {handleSubmit} change = {change}/>
   }
   }
 
@@ -33,12 +37,20 @@ export default function Proposal1(props) {
     rfp:"",date:"",district:"",
     city:"",letter:""})
   const [agenda,setagenda] = useState([])
+  const [agenda1,setagenda1] = useState([])
+  const [tables, settables] = useState([])
+  const [tablecontent, settablecontent] = useState([]);
+  console.log(agenda)
+  console.log(agenda1)
   
   const handleSubmit = async (e) => {
     e.preventDefault()
     const data = {
       info: info,
-      agenda: agenda
+      agenda: agenda,
+      agenda1 : agenda1,
+      tables : tables,
+      tablecontent : tablecontent
     };
     try {
       const response = await fetch('http://localhost:3000/api/simple/invoice1',{
@@ -134,7 +146,7 @@ const change = async (e) => {
           }} 
           >Prev</button>
           <button
-          disabled = {page===3 }
+          disabled = {page===4 }
           onClick={() =>{
             setpage((currPage) => currPage+1)
           }} 
