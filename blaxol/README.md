@@ -72,6 +72,8 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 
 
-
-
-
+'On 22 July 2019, ISRO launched Chandrayaan-2 on board a Launch Vehicle Mark-3 (LVM3) launch vehicle consisting of an orbiter, a lander and a rover.[12] The lander was scheduled to touch down on the lunar surface on 6 September 2019 to deploy the Pragyan rover. The lander lost contact with mission control, deviated from its intended trajectory while attempting to land near the lunar south pole, and crashed.\n' +
+       '\n' +
+'The lunar south pole region holds particular interest for scientific exploration. Studies show large amounts of ice there. Mountainous terrain and unpredictable lighting protect the ice from melting, but they also make landing scientific probes there challenging undertaking. The ice could contain solid-state compounds that would normally melt under warmer conditions elsewhere on the Moon—compounds which could provide insight into lunar, Earth, and Solar System history. For future crewed missions and outposts, ice could also be a source of drinking water and of hydrogen for fuel and oxygen.\n' +
+       '\n' +
+"The European Space Tracking network (ESTRACK), operated by the European Space Agency (ESA), and Deep Space Network operated by Jet Propulsion Laboratory (JPL) of NASA are supporting the mission.[17] Under a new cross-support arrangement, ESA tracking support could be provided for upcoming ISRO missions such as those of India's first human spaceflight programme, Gaganyaan, and the Aditya-L1 solar research mission. In return, future ESA missions will receive similar support from ISRO's own tracking stations."

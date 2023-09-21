@@ -54,18 +54,18 @@ export default function Proposal1_last(props) {
           <div>
           <h2> {item.heading}</h2>
           <br></br>
-          <p>{item.para?item.para:null}</p>
+          <p>{item.para ?  item.para:null}</p>
           <br>
           </br>
-          <h4>{item.sub? item.sub.map((subitem) => {
+          <h4>{item.sub ? item.sub.map((subitem) => {
          return <div>
           <h3>{subitem.heading}</h3>
           <br></br>
           <p style={{fontWeight : "lighter"}}>{subitem.para}</p>
           <br/>
-          <p>{item.para1?item.para1:null}</p>
           <br></br>
         </div>})  : null}</h4>
+        <p>{item. para1? item.para1:null}</p>
         </div>
         <br/>
   
@@ -97,6 +97,7 @@ export default function Proposal1_last(props) {
                     <label htmlFor="exampleInputEmail1"></label>
                     <textarea type="text" name='para1' value={input.para1} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Last Paragraph" required />
                 </div>
+                <br />
                 {input.sub? input.sub.map((subitem) => {
                     return <div>
                         <h3>{subitem.heading}</h3>
@@ -131,7 +132,7 @@ export default function Proposal1_last(props) {
         <br/>
         {showeditform ? <SubsectionEdit input = {input} agenda1 = {props.agenda1} setagenda1 = {props.setagenda1} setinput = {setinput} i = {i} setshoweditform = {setshoweditform} /> : null}
         <div className="form-group" style={{ margin: '0 auto' }}>
-          <button type="submit" className="btn btn-primary">Generate Word Document</button>
+          <button type="submit" onClick={props.handleSubmit} className="btn btn-primary"> Generate Word Document</button>
         </div>
         </>
     )

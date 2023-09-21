@@ -1,0 +1,92 @@
+Date : 2023-09-15 13:23:01
+Directory : c:\Users\lokes\Desktop\MERN\blaxol\backend\routes
+Total : 51 files,  -21512 codes, -169 comments, -502 blanks, all -22183 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| XML        |          1 |         -1 |          0 |          0 |         -1 |
+| HTML       |          1 |        -23 |        -23 |         -2 |        -48 |
+| Markdown   |          1 |        -43 |          0 |        -36 |        -79 |
+| CSS        |          2 |       -271 |         -6 |        -78 |       -355 |
+| JavaScript |         41 |     -1,775 |       -140 |       -381 |     -2,296 |
+| JSON       |          5 |    -19,399 |          0 |         -5 |    -19,404 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                     | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                        |         51 |    -21,512 |       -169 |       -502 |    -22,183 |
+| ..                                                                       |         51 |    -21,512 |       -169 |       -502 |    -22,183 |
+| .. (Files)                                                               |          5 |     -1,359 |        -21 |        -22 |     -1,402 |
+| ..\..                                                                    |         41 |    -20,038 |       -147 |       -464 |    -20,649 |
+| ..\.. (Files)                                                            |          3 |    -18,096 |          0 |        -38 |    -18,134 |
+| ..\..\public                                                             |          2 |        -48 |        -23 |         -3 |        -74 |
+| ..\..\src                                                                |         36 |     -1,894 |       -124 |       -423 |     -2,441 |
+| ..\..\src (Files)                                                        |          8 |       -362 |        -16 |       -106 |       -484 |
+| ..\..\src\Components                                                     |         26 |     -1,508 |       -108 |       -307 |     -1,923 |
+| ..\..\src\context                                                        |          2 |        -24 |          0 |        -10 |        -34 |
+| ..\..\src\context\temp                                                   |          2 |        -24 |          0 |        -10 |        -34 |
+| ..\middleware                                                            |          1 |        -16 |         -1 |         -5 |        -22 |
+| ..\models                                                                |          4 |        -99 |          0 |        -11 |       -110 |
++--------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                 | language   | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\lokes\Desktop\MERN\blaxol\README.md                             | Markdown   |        -43 |          0 |        -36 |        -79 |
+| c:\Users\lokes\Desktop\MERN\blaxol\backend\db.js                         | JavaScript |        -11 |          0 |         -4 |        -15 |
+| c:\Users\lokes\Desktop\MERN\blaxol\backend\index.js                      | JavaScript |        -14 |         -4 |         -5 |        -23 |
+| c:\Users\lokes\Desktop\MERN\blaxol\backend\middleware\fetchuser.js       | JavaScript |        -16 |         -1 |         -5 |        -22 |
+| c:\Users\lokes\Desktop\MERN\blaxol\backend\models\Admin.js               | JavaScript |        -23 |          0 |         -2 |        -25 |
+| c:\Users\lokes\Desktop\MERN\blaxol\backend\models\Note.js                | JavaScript |        -21 |          0 |         -4 |        -25 |
+| c:\Users\lokes\Desktop\MERN\blaxol\backend\models\RFP.js                 | JavaScript |        -36 |          0 |         -2 |        -38 |
+| c:\Users\lokes\Desktop\MERN\blaxol\backend\models\User.js                | JavaScript |        -19 |          0 |         -3 |        -22 |
+| c:\Users\lokes\Desktop\MERN\blaxol\backend\nothing.js                    | JavaScript |        -13 |        -17 |        -11 |        -41 |
+| c:\Users\lokes\Desktop\MERN\blaxol\backend\package-lock.json             | JSON       |     -1,299 |          0 |         -1 |     -1,300 |
+| c:\Users\lokes\Desktop\MERN\blaxol\backend\package.json                  | JSON       |        -22 |          0 |         -1 |        -23 |
+| c:\Users\lokes\Desktop\MERN\blaxol\package-lock.json                     | JSON       |    -18,006 |          0 |         -1 |    -18,007 |
+| c:\Users\lokes\Desktop\MERN\blaxol\package.json                          | JSON       |        -47 |          0 |         -1 |        -48 |
+| c:\Users\lokes\Desktop\MERN\blaxol\public\index.html                     | HTML       |        -23 |        -23 |         -2 |        -48 |
+| c:\Users\lokes\Desktop\MERN\blaxol\public\manifest.json                  | JSON       |        -25 |          0 |         -1 |        -26 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\App.css                           | CSS        |       -259 |         -6 |        -74 |       -339 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\App.js                            | JavaScript |        -58 |         -3 |        -20 |        -81 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\App.test.js                       | JavaScript |         -7 |          0 |         -2 |         -9 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Alert.js               | JavaScript |        -17 |          0 |         -2 |        -19 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\CreateAdmin.js         | JavaScript |        -70 |          0 |        -13 |        -83 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\CreateUser.js          | JavaScript |        -72 |          0 |        -10 |        -82 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\CustomTables.js        | JavaScript |        -60 |         -3 |         -7 |        -70 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\EditForm.js            | JavaScript |        -47 |          0 |         -7 |        -54 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\EditForm1.js           | JavaScript |        -73 |        -14 |        -12 |        -99 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\EditLetterTable.js     | JavaScript |         -7 |          0 |         -3 |        -10 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\FieldEntry.js          | JavaScript |        -41 |          0 |         -9 |        -50 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\FieldEntry1.js         | JavaScript |        -60 |          0 |         -9 |        -69 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Invoice.js             | JavaScript |        -23 |         -1 |         -5 |        -29 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\LetterTable.js         | JavaScript |        -59 |        -23 |        -21 |       -103 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Login.js               | JavaScript |        -65 |         -5 |        -21 |        -91 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Navbar.js              | JavaScript |        -61 |         -1 |        -23 |        -85 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\PageNotFound.js        | JavaScript |        -10 |          0 |         -2 |        -12 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Proposal1.js           | JavaScript |       -135 |         -9 |        -21 |       -165 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Proposal1_Exhibit.js   | JavaScript |       -105 |         -2 |         -9 |       -116 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Proposal1_FrontPage.js | JavaScript |        -42 |         -2 |         -7 |        -51 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Proposal1_body.js      | JavaScript |        -85 |         -7 |        -25 |       -117 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Proposal1_last.js      | JavaScript |       -119 |          0 |        -20 |       -139 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Proposal1_letter.js    | JavaScript |       -108 |         -1 |        -27 |       -136 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Proposal2.js           | JavaScript |         -8 |          0 |         -2 |        -10 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Receipt.js             | JavaScript |         -8 |          0 |         -2 |        -10 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\RfpWorker.js           | JavaScript |        -60 |        -23 |        -18 |       -101 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\SubForm.js             | JavaScript |        -48 |         -1 |         -9 |        -58 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\SubsectionEdit.js      | JavaScript |        -77 |        -15 |        -14 |       -106 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\Components\Subsesction.js         | JavaScript |        -48 |         -1 |         -9 |        -58 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\context\temp\NoteState.js         | JavaScript |        -21 |          0 |         -7 |        -28 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\context\temp\noteContext.js       | JavaScript |         -3 |          0 |         -3 |         -6 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\index.css                         | CSS        |        -12 |          0 |         -4 |        -16 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\index.js                          | JavaScript |        -12 |         -3 |         -3 |        -18 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\logo.svg                          | XML        |         -1 |          0 |          0 |         -1 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\reportWebVitals.js                | JavaScript |        -12 |          0 |         -2 |        -14 |
+| c:\Users\lokes\Desktop\MERN\blaxol\src\setupTests.js                     | JavaScript |         -1 |         -4 |         -1 |         -6 |
+| Total                                                                    |            |    -21,512 |       -169 |       -502 |    -22,183 |
++--------------------------------------------------------------------------+------------+------------+------------+------------+------------+

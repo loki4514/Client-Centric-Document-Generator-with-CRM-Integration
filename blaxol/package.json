@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
+    "docx": "^8.2.2",
     "docxtemplater": "^3.37.12",
     "ejs": "^3.1.9",
     "filereader": "^0.10.3",

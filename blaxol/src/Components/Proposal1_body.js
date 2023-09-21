@@ -32,9 +32,9 @@ export default function Proposal1_body(props) {
     
   }
 
-  const click2 = () => {
-    setshowform2(true)
-  }
+  // const click2 = () => {
+  //   setshowform2(true)
+  // }
 
   const delete_item = (i) => {
     const updatedAgenda = props.agenda.filter((item, index) => index !== i); // delete here and send remain back
@@ -50,7 +50,7 @@ export default function Proposal1_body(props) {
     if (props.agenda[i].hasOwnProperty('sub')) {
       setshoweditform1(true)
       setshoweditform(false)
-      setshoweditform2(false)
+      // setshoweditform2(false)
     }
 
     
@@ -58,7 +58,7 @@ export default function Proposal1_body(props) {
     else {
       setshoweditform(true) 
       setshoweditform1(false)
-      setshoweditform2(false)
+      // setshoweditform2(false)
 
     }
 
@@ -77,7 +77,7 @@ export default function Proposal1_body(props) {
     <br></br>
     <button onClick={click1}>Generates Heading, Sub-Heading and Paragraph</button>
     <br></br>
-    <button onClick={click2}>Generates Sub-Heading and Sub-Paragraph</button>
+    {/* <button onClick={click2}>Generates Sub-Heading and Sub-Paragraph</button> */}
 </div>
     {props.agenda.map((item,i) => {
 
@@ -109,8 +109,8 @@ export default function Proposal1_body(props) {
       {showeditform ? <EditForm setagenda={props.setagenda}  setshoweditform={setshoweditform} agenda={props.agenda} i={i}/>: null}
       {showform1 ? <FieldEntry1 setagenda={props.setagenda} setshowform1={setshowform1} agenda = {props.agenda}/>:null}
       {showeditform1 ?<EditForm1 setagenda={props.setagenda}  setshoweditform1={setshoweditform1} agenda={props.agenda} i={i}/>: null}
-      {showform2 ?  <Subsection setagenda={props.setagenda} setshowform2={setshowform2} agenda = {props.agenda}/>:null}
-      {showeditform2 ? <SubsectionEdit setagenda={props.setagenda}  setshoweditform2={setshoweditform2} agenda={props.agenda} i={i}/>: null}
+      {/* { {showform2 ?  <Subsection setagenda={props.setagenda} setshowform2={setshowform2} agenda = {props.agenda}/>:null}
+      {showeditform2 ? <SubsectionEdit setagenda={props.setagenda}  setshoweditform2={setshoweditform2} agenda={props.agenda} i={i}/>: null} */}
     </>
   )
 } 

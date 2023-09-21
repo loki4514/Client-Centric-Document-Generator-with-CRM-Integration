@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const RFP = require('../models/RFP')
-const PizZip = require('pizzip');
 const fs = require('fs');
 const path = require('path');
-const officegen = require('officegen');
-const Docxtemplater = require('docxtemplater');
+
+const { AlignmentType, Document, Packer, Paragraph, TextRun, Header,
+    Table, PageBreak, TableCell, TableRow, WidthType, ImageRun, LevelFormat } = require("docx");
+
 
 // const saveAs = require('file-saver');
 // ROUTE 1: Get All the Notes using: GET "/api/notes/getuser". Login required
@@ -25,621 +26,909 @@ const formatDate = (dateString) => {
 }
 
 
+
+
 router.post('/invoice1', async (req, res) => {
     console.log(req.body);
     console.log(req.body.info.project_name)
     console.log(req.body.agenda)
-
     const tablearray = req.body.tables
+    const ex_tables = req.body.tablecontent
 
     try {
-        // const content = fs.readFileSync(path.resolve('backend/docfiles', 'input.docx'), 'binary');
-        // const zip = new PizZip(content);
-        // const doc = new Docxtemplater(zip);
-
-        // doc.setData({
-        //     project_name: req.body.info.project_name,
-        //     spoc: req.body.info.spoc,
-        //     rfp: req.body.info.rfp,
-        //     date: req.body.info.date,
-        //     client_name: req.body.info.client_name,
-        //     district: req.body.info.district,
-        //     city: req.body.info.city,
-        // });
-
-        // doc.render();
-
-        // // doc.createP();
-        // doc.addText('This is a new Paragraph')
-        // doc.styles.setFont('Arial',14)
-
-        // const updatedContent = doc.getZip().generate({ type: 'nodebuffer' });
-
-        // // const newParagraph = updatedContent.createP();
-        // // newParagraph.addText('This is a new paragraph.');
-        // // newParagraph.styles.setFont('Arial', 14);
-
-        // // const finalContent = Buffer.from(newParagraph.generate());
-
-        // fs.writeFileSync(path.resolve('backend/docfiles', 'output.docx'), updatedContent);
-        const text = `This proposal and contract are the property of Blaxol Risensi LLP (“Blaxol”) and must not be disclosed outside the family of ${req.body.info.client_name} or be duplicated, used, or disclosed—in whole or in part—for any purpose other than to evaluate this proposal. If a contract is awarded to Blaxol as a result of, or in connection with, this proposal, the Promoters shall have the right to duplicate, use, or disclose the data to the extent provided in the resulting contract and subject to the limitations of the Privacy Policy and other applicable bylaws. This proposal contains trade secrets and proprietary commercial or financial information, and information of a personal nature that is exempt from disclosure under OPRAA and other applicable laws.Accordingly, no portion of this document should be released without consulting BLAXOL. This information is contingent on the Parties reaching mutually agreeable terms and conditions and upon acceptance of any limitations described herein`
-        const docx = officegen('docx');
-
-        // Create a header with the specified properties
-        const header = docx.getHeader().createP();
-        header.options.align = 'right'
-        header.addText('STRICTLY CONFIDENTIAL', {
-            color: 'FF0000', // Red color (Hexadecimal code)
-            bold: true,
-        });
-
-        // Add a line break
-        header.addLineBreak();
-
-        header.addText('PRELIMINARY DRAFT SUBJECT TO REVISION', {
-            color: 'FF0000', // Red color (Hexadecimal code)
-            bold: true,
-        });
-
-        // Add another line break
-        header.addLineBreak();
-
-        header.addText('SUBJECT TO FRE 408 AND CONFIDENTIALITY', {
-            color: 'FF0000', // Red color (Hexadecimal code)
-            bold: true,
-        });
-
-        header.addLineBreak();
-        header.addLineBreak();
-        header.addLineBreak();
-
-
-        const front_page = docx.createP()
-
-        front_page.addText('Blaxol Risensi LLP', {
-            color: '4A55A2',
-            bold: true,
-            font_face: 'IBM Plex Sans',
-            font_size: 14
-        })
-
-        front_page.addLineBreak();
-
-        // projec name
-        front_page.addText(req.body.info.project_name, {
-            color: '4A55A2',
-            bold: true,
-            font_face: 'IBM Plex Sans',
-            font_size: 24
-        })
-
-        front_page.addLineBreak();
-
-
-
-        front_page.addText('Consulting Services Engagement Letter,', {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 14
-        })
-
-        front_page.addLineBreak();
-
-
-
-        front_page.addText('Rules for Engagement', {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 14
-        })
-
-        front_page.addLineBreak();
-
-
-        // proposal name
-        front_page.addText(`Proposal for: ${req.body.info.spoc}`, {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 14
-        })
-
-        front_page.addLineBreak();
-
-        // rfp 
-        front_page.addText(req.body.info.rfp, {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 14
-        })
-
-        front_page.addLineBreak();
-
-        front_page.addText('® Blaxol Risensi LLP (A Member of Blaxol LLC)', {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 14
-        })
-
-        front_page.addLineBreak();
-
-
-        front_page.addText(formatDate(req.body.info.date), {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 14
-        })
-
-        front_page.addLineBreak();
-
-        front_page.addText('ENG - BLR', {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 14
-        })
-
-        front_page.addLineBreak();
-        front_page.addLineBreak();
-        front_page.addLineBreak();
-
-        image1 = docx.createP()
-        image1.options.align = 'right'
-        image1.addImage(path.resolve('backend/docfiles', 'Picture1.png'), { cx: 300, cy: 200 })
-
-        image1.addLineBreak()
-
-
-        pObj = docx.createP()
-        pObj.options.align = 'justify'
-        pObj.addText(text, {
-            font_face: 'Calibri',
-            font_size: 9.5
-
-        })
-
-        front_page.addLineBreak();
-
-        address = docx.createP()
-        address.options.align = 'right'
-        address.addText('#30, 2 nd Floor, 4 th Main Road,', {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 12
-        })
-
-        address.addLineBreak();
-        address.addText('Jayanagar 7th Block, Bengaluru,', {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 12
-        })
-
-        address.addLineBreak();
-        address.addText('Karnataka, India 560070', {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 12
-        })
-
-        address.addLineBreak();
-
-        address1 = docx.createP()
-        address1.addText(formatDate(req.body.info.date), {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 12
-        })
-
-        address1.addLineBreak();
-        address1.addLineBreak();
-
-        address1.addText(`Attn: ${req.body.info.spoc}`, {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 12
-        })
-
-        address1.addLineBreak();
-
-        address1.addText(`${req.body.info.client_name}`, {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 12
-        })
-
-        address1.addLineBreak();
-
-        address1.addText(`${req.body.info.district}`, {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 12
-        })
-
-        address1.addLineBreak();
-
-        address1.addText(`${req.body.info.city}`, {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 12
-        })
-
-        address1.addLineBreak();
-
-        address1.addText('INDIA', {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 12
-        })
-
-        address1.addLineBreak();
-
-
-        // to add letter dummy 
-
-        letter_heading = docx.createP()
-
-
-        letter_heading.addText("Subject: Letter of Intent / Declaration and Explanation", {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 12,
-            underline: true
-        })
-        letter_heading.addLineBreak()
-
-        letter_body = docx.createP()
-        letter_body.options.align = 'justify'
-        letter_body.addText(req.body.info.letter, {
-            color: '4A55A2',
-            font_face: 'IBM Plex Sans',
-            font_size: 12,
-        })
-        letter_heading.addLineBreak()
-
-        // req.body.info.agenda
-
-        // var table = [
-        //     [{
-        //         val: "Activity",
-        //         opts: {
-        //             cellColWidth: 2400, // Reduced column width
-        //             b: true,
-        //             sz: '26', // Reduced font size
-        //             fontFamily: "Times New Roman"
-        //         }
-        //     }, {
-        //         val: "Timeline",
-        //         opts: {
-        //             b: true,
-        //             sz: '26', // Reduced font size
-        //             fontFamily: "Times New Roman",
-        //             align: "center",
-        //         }
-        //     }, {
-        //         val: "Professional Fee",
-        //         opts: {
-        //             align: "center",
-        //             cellColWidth: 2400, // Reduced column width
-        //             b: true,
-        //             sz: '26', // Reduced font size
-        //             fontFamily: "Times New Roman" // Reduced font size
-        //         }
-        //     }, {
-        //         val: "Reimbursement",
-        //         opts: {
-        //             align: "center",
-        //             cellColWidth: 2400, // Reduced column width
-        //             b: true,
-        //             sz: '26', // Reduced font size
-        //             fontFamily: "Times New Roman" // Reduced font size
-        //         }
-        //     }, {
-        //         val: "Government Fees",
-        //         opts: {
-        //             align: "center",
-        //             cellColWidth: 2400, // Reduced column width
-        //             b: true,
-        //             sz: '26', // Reduced font size
-        //             fontFamily: "Times New Roman" // Reduced font size
-        //         }
-        //     }],
-        //     [1, 'All grown-ups were once children', "", "", ""],
-        //     [2, 'there is no harm in putting off a piece of work until another day.', "", "", ""],
-        //     [3, 'But when it is a matter of baobabs, that always means a catastrophe.', "", "", ""],
-        //     [4, 'watch out for the baobabs!', "END", "", ""],
-        // ];
-
-        // var tableStyle = {
-        //     tableColWidth: 4261, // Adjusted column width
-        //     tableSize: 12, // Reduced table font size
-        //     tableColor: "ada",
-        //     tableAlign: "left",
-        //     tableFontFamily: "Times New Roman"
-        // };
-
-        // //   var tableStyle = {
-        // //     tableColWidth: 4261,
-        // //     tableSize: 24,
-        // //     tableColor: "ada",
-        // //     tableAlign: "left",
-        // //     tableFontFamily: "Comic Sans MS",
-        // //     spacingBefor: 120, // default is 100
-        // //     spacingAfter: 120, // default is 100
-        // //     spacingLine: 240, // default is 240
-        // //     spacingLineRule: 'atLeast', // default is atLeast
-        // //     indent: 100, // table indent, default is 0
-        // //     fixedLayout: true, // default is false
-        // //     borders: true, // default is false. if true, default border size is 4
-        // //     borderSize: 2, // To use this option, the 'borders' must set as true, default is 4
-        // //     columns: [{ width: 4261 }, { width: 1 }, { width: 42 }], // Table logical columns
-        // //   }
-        // docx.createTable(table, tableStyle)
-
-        // // const headers = ['Activity', 'Timeline', 'Professional Fee', 'Reimbursement Government Fees'];
-
-        // // Define table rows
-
-        for (var i = 0; i < tablearray.length; i++) {
-            var keys = Object.keys(tablearray[i][0]);
-            var table = [[]];
-          
-            for (var j = 0; j < keys.length; j++) {
-              var column = {
-                val: keys[j],
-                opts: {
-                  cellColWidth: 2400,
-                  b: true,
-                  sz: '26',
-                  fontFamily: "Times New Roman"
-                }
-              };
-              table[0].push(column);
+        const letter_text = `This proposal and contract are the property of Blaxol Risensi LLP (“Blaxol”) and must not be disclosed outside the family of ${req.body.info.client_name} or be duplicated, used, or disclosed—in whole or in part—for any purpose other than to evaluate this proposal. If a contract is awarded to Blaxol as a result of, or in connection with, this proposal, the Promoters shall have the right to duplicate, use, or disclose the data to the extent provided in the resulting contract and subject to the limitations of the Privacy Policy and other applicable bylaws. This proposal contains trade secrets and proprietary commercial or financial information, and information of a personal nature that is exempt from disclosure under OPRAA and other applicable laws.Accordingly, no portion of this document should be released without consulting BLAXOL. This information is contingent on the Parties reaching mutually agreeable terms and conditions and upon acceptance of any limitations described herein`
+        
+
+        const columnHeadings = ["Name", "Designation", "Organisation", "Email", "Mobile"];
+        const result = req.body.agenda.map(item => {
+            const children = []
+
+            if (item.heading) {
+                children.push(new Paragraph({
+
+
+                    text: item.heading,
+                    size: 32,
+                    font: "Times New Roman",
+
+                    numbering: {
+                        level: 0,
+                        reference: "my-crazy-numbering",
+                    },
+                    style: "aside"
+                }));
             }
-          
-            for (var j = 0; j < tablearray[i].length; j++) {
-              var dataRow = keys.map(key => tablearray[i][j][key]);
-              table.push(dataRow);
+
+            if (item.para) {
+                children.push(...item.para.split('\n').map(line => new Paragraph({
+                    alignment: AlignmentType.JUSTIFIED,
+                    style: "wellSpaced",
+                    children: [
+                        new TextRun({
+                            text: line,
+                            size: 28,
+                            font: "Times New Roman",
+                        }),
+                    ],
+                })));
             }
-          
-            var tableStyle = {
-              tableColWidth: 4261,
-              tableSize: 12,
-              tableAlign: "left",
-              tableFontFamily: "Times New Roman"
-            };
-          
-            docx.createTable(table, tableStyle);
-          
-            if (i < tablearray.length - 1) {
-              docx.createP().addText(""); // You should use the appropriate function for your library
-          }
-            
-          }
+            new Paragraph("\n")
+            if (item.sub) {
+                item.sub.map(subItem => {
+                    if (subItem.heading && subItem.para) {
+                        children.push(new Paragraph({
+                            alignment: AlignmentType.JUSTIFIED,
+                            numbering: {
+                                level: 2,
+                                reference: "my-crazy-numbering",
+                            },
+                            style: "wellSpaced",
+                            children: [
+                                new TextRun({
+
+                                    text: subItem.heading + ": ",
+                                    size: 28,
+                                    font: "Times New Roman",
+                                    bold: true
+
+                                }),
+                                new TextRun({
+
+                                    text: subItem.para, // Combine heading and para with " : "
+                                    size: 28,
+                                    font: "Times New Roman",
 
 
+                                }),
 
-        docx.addPageBreak();
-        // adding actual docx body 
-        // for (let i = 0; i < req.body.agenda.length; i++) {
-
-        //     heading = docx.createListOfNumbers();
-
-        //     if (req.body.agenda[i].heading) {
-        //     heading.addText(`${req.body.agenda[i].heading}`, {
-        //         color: '4A55A2',
-        //         font_face: 'IBM Plex Sans',
-        //         font_size: 12,
-        //         underline: true
-        //     })
-        //     heading.addLineBreak()
-        // }
-
-
-        // if (req.body.agenda[i].para) {
-        //     para = docx.createP()
-        //     para.options.align = 'justify'
-        //     para.addText(req.body.agenda[i].para, {
-        //         color: '4A55A2',
-        //         font_face: 'IBM Plex Sans',
-        //         font_size: 12,
-        //     })
-        //     para.addLineBreak()
-        // }
-
-        //     if (req.body.agenda[i].sub) {
-        //         for (let j = 0; j < req.body.agenda[i].sub.length; j++) {
-        //             sub_heading = docx.createListOfNumbers();
-
-
-        //             sub_heading.addText(`${req.body.agenda[i].sub[j].heading}`, {
-        //                 color: '4A55A2',
-        //                 font_face: 'IBM Plex Sans',
-        //                 font_size: 12,
-        //                 underline: true
-        //             })
-        //             sub_heading.addLineBreak()
-
-        //             sub_para = docx.createP()
-        //             sub_para.options.align = 'justify'
-        //             sub_para.addText(req.body.agenda[i].sub[j].para, {
-        //                 color: '4A55A2',
-        //                 font_face: 'IBM Plex Sans',
-        //                 font_size: 12,
-        //             })
-        //             sub_para.addLineBreak()
-        //             }
-        //         }
-        // }
-
-        for (let i = 0; i < req.body.agenda.length; i++) {
-            const currentItem = req.body.agenda[i];
-            const mainHeading = currentItem.heading;
-            const mainBulletText = `${(i + 1.0).toFixed(1)}  ${mainHeading}\n`;
-            const mainPara = docx.createP();
-            mainPara.options.align = 'left';
-            mainPara.addText(mainBulletText, {
-                color: '4A55A2',
-                font_face: 'IBM Plex Sans',
-                font_size: 14,
-
-            });
-
-            if (currentItem.para) {
-                const para = docx.createP();
-                para.options.align = 'justify';
-                para.options.indentLeft = 630;
-                //   para.options.indentLeft = 1440;
-                para.addText(currentItem.para, {
-                    color: '4A55A2',
-                    font_face: 'IBM Plex Sans',
-                    font_size: 12,
-                });
-
-            }
-            docx.createP().addLineBreak();
-
-            if (currentItem.sub) {
-                for (let j = 0; j < currentItem.sub.length; j++) {
-                    const subItem = currentItem.sub[j];
-                    const subHeading = subItem.heading;
-
-                    const subBulletText = `${j + 1.0}.    ${subHeading}\n`;
-                    const subPara = docx.createP();
-                    // subPara.options.indentLeft = 800
-                    subPara.addText(subBulletText, {
-                        color: '4A55A2',
-                        font_face: 'IBM Plex Sans',
-                        font_size: 12,
-
-                    });
-
-                    if (subItem.para) {
-                        const subPara = docx.createP();
-                        subPara.options.align = 'justify';
-                        subPara.options.indentLeft = 630
-                        subPara.addText(subItem.para, {
-                            color: '4A55A2',
-                            font_face: 'IBM Plex Sans',
-                            font_size: 12,
-                        });
-
+                            ],
+                        }));
                     }
-                    // docx.createP().addLineBreak();
-                }
-                docx.createP().addLineBreak();
-            }
-
-        }
-
-
-        docx.addPageBreak()
-
-
-
-
-
-
-
-     // last body of the paragraph
-
-        for (let i = 0; i < req.body.agenda1.length; i++) {
-            const currentItem = req.body.agenda1[i];
-            const mainHeading = currentItem.heading;
-            const mainBulletText = `${(i + 1.0).toFixed(1)}  ${mainHeading}\n`;
-            const mainPara = docx.createP();
-            mainPara.options.align = 'left';
-            mainPara.addText(mainBulletText, {
-                color: '4A55A2',
-                font_face: 'IBM Plex Sans',
-                font_size: 14,
-
-            });
-
-            if (currentItem.para) {
-                const para = docx.createP();
-                para.options.align = 'justify';
-                para.options.indentLeft = 630;
-                //   para.options.indentLeft = 1440;
-                para.addText(currentItem.para, {
-                    color: '4A55A2',
-                    font_face: 'IBM Plex Sans',
-                    font_size: 12,
                 });
+            }
+
+            children.push(new Paragraph("\n"))
+
+            return children;
+        })
+
+
+        const result1 = req.body.agenda1.map(item => {
+            const children1 = []
+            if (item.para) {
+                children1.push(...item.para.split('\n').map(line => new Paragraph({
+                    alignment: AlignmentType.JUSTIFIED,
+                    spacing: {
+                        line: 360
+                    },
+
+                    children: [
+                        new TextRun({
+                            text: line,
+                            size: 24,
+                            font: "Times New Roman",
+                            spacing: {
+                                line: 360
+                            }
+                        }),
+                    ],
+                })));
+
 
             }
-            docx.createP().addLineBreak();
 
-            if (currentItem.sub) {
-                for (let j = 0; j < currentItem.sub.length; j++) {
-                    const subItem = currentItem.sub[j];
-                    const subHeading = subItem.heading;
+            if (item.sub) {
+                item.sub.map(subItem => {
+                    if (subItem.heading && subItem.para) {
+                        children1.push(new Paragraph({
+                            style: "wellSpaced",
+                            alignment: AlignmentType.JUSTIFIED,
+                            numbering: {
+                                level: 2,
+                                reference: "my-crazy-numbering",
+                            },
+                            children: [
+                                new TextRun({
 
-                    const subBulletText = `${j + 1.0}.    ${subHeading}\n`;
-                    const subPara = docx.createP();
-                    // subPara.options.indentLeft = 800
-                    subPara.addText(subBulletText, {
-                        color: '4A55A2',
-                        font_face: 'IBM Plex Sans',
-                        font_size: 12,
+                                    text: subItem.heading + ": ",
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    bold: true
 
-                    });
+                                }),
+                                new TextRun({
 
-                    if (subItem.para) {
-                        const subPara = docx.createP();
-                        subPara.options.align = 'justify';
-                        subPara.options.indentLeft = 630
-                        subPara.addText(subItem.para, {
-                            color: '4A55A2',
-                            font_face: 'IBM Plex Sans',
-                            font_size: 12,
-                        });
+                                    text: subItem.para, // Combine heading and para with " : "
+                                    size: 24,
+                                    font: "Times New Roman",
 
+
+                                }),
+
+                            ],
+                        }));
                     }
-                    // docx.createP().addLineBreak();
-                }
-                docx.createP().addLineBreak();
-            }
-            if (currentItem.para1) {
-                const para = docx.createP();
-                para.options.align = 'justify';
-                para.options.indentLeft = 630;
-                //   para.options.indentLeft = 1440;
-                para.addText(currentItem.para, {
-                    color: '4A55A2',
-                    font_face: 'IBM Plex Sans',
-                    font_size: 12,
                 });
+            }
 
-        }
-    }
+            if (item.para1) {
+                children1.push(...item.para1.split('\n').map(line => new Paragraph({
+                    alignment: AlignmentType.JUSTIFIED,
+                    spacing: {
+                        line: 360
+                    },
+                    // style : "wellSpaced",
+                    children: [
+                        new TextRun({
+                            text: line,
+                            size: 24,
+                            font: "Times New Roman",
+                            spacing: {
+                                line: 360
+                            }
+                        }),
+                    ],
+                })));
+            }
+            return children1;
+        })
 
 
-        // main body of the document
+
+        const tableRowArray = rowcontent.map(content => (
+            new TableRow({
+                children: content.map((text, index) => (
+                    console.log(index),
+                    new TableCell({
+                        width: {
+                            size: 10070,
+                            type: WidthType.DXA,
+                        },
+                        children: [
+
+                            index === 3 ? new Paragraph({
+                                alignment: AlignmentType.CENTER,
+                                children: [
+                                    new TextRun({
+                                        text: text,
+                                        size: 26,
+                                        font: "Times New Roman",
+                                        color: "#0000FF",
+                                        underline: true
+                                    }),
+                                ],
+                            }) : new Paragraph({
+                                alignment: AlignmentType.CENTER,
+                                children: [
+                                    new TextRun({
+                                        text: text,
+                                        size: 26,
+                                        font: "Times New Roman",
+
+                                    }),
+                                ],
+                            })],
+                    })
+                )),
+            })
+        ));
 
 
 
 
+        const doc = new Document({
+            styles: {
+                default: {},
+                paragraphStyles: [
+                    {
+                        id: "aside",
+                        name: "Aside",
+                        basedOn: "Normal",
+                        next: "Normal",
+                        run: {
+                            // color: "999999",
+                            // italics: true,
+                            size: 32,
+                            font: 'Times New Roman',
+                            bold: true,
+                            spacing: {
+                                after: 400,
+                            },
+
+                        },
+                        paragraph: {
+                            size: 32,
+                            font: 'Times New Roman',
+                            spacing: {
+                                after: 400,
+                            },
+                        },
+                    },
+                    {
+                        id: "wellSpaced",
+                        name: "Well Spaced",
+                        basedOn: "Normal",
+                        quickFormat: true,
+                        run: {
+                            // color: "999999",
+                            // italics: true,
+                            size: 28,
+                            font: 'Times New Roman',
+                            spacing: {
+                                after: 400,
+                            },
 
 
 
+                        },
+                        paragraph: {
+                            spacing: {
+                                line: 360,
+                                // after : 400
+                            },
+                            indent: {
+                                left: 420
+                            }
+                        },
+                    },
 
+                    {
+                        id: "customStyle",
+                        name: "Custom Style",
+                        basedOn: "Normal",
+                        next: "Normal",
+                        paragraph: {
+                            size: 24,
+                            font: "Times New Roman",
+                            color: '#000080',
+                            spacing: {
+                                line: 250
+                            }, // You can add alignment here if needed
+                        },
+                    },
+                    {
+                        id: "mystyling1",
+                        name: "Strike Underline",
+                        basedOn: "Normal",
+                        quickFormat: true,
+                        run: {
+                            spacing: {
+                                before: 400
+                            }
 
+                        },
+                    },
+                ],
 
+                characterStyles: [
+                    {
+                        id: "strikeUnderlineCharacter",
+                        name: "Strike Underline",
+                        basedOn: "Normal",
+                        quickFormat: true,
+                        run: {
+                            strike: true,
+                            // underline: {
+                            //     type: UnderlineType.SINGLE,
+                            // },
+                        },
+                    },
+                ],
+            },
+            numbering: {
 
+                config: [
+                    {
+                        reference: "my-crazy-numbering",
+                        size: 64,
+                        font: "Times New Roman",
+                        levels: [
+                            {
+                                level: 0,
+                                format: LevelFormat.DECIMAL,
+                                text: "%1.0",
+                                alignment: AlignmentType.START,
+                                style: {
+                                    run: {
+                                        bold: true,
+                                        size: 32,
+                                        font: {
+                                            name: 'Times New Roman'
+                                        },
 
+                                    },
+                                },
+                            },
+                            {
+                                level: 1,
+                                format: "decimal",
+                                text: "%1.",
+                                alignment: AlignmentType.START,
+                                style: {
 
+                                },
+                            },
+                            {
+                                level: 2,
+                                format: "decimal",
+                                text: "%3)",
+                                alignment: AlignmentType.START,
+                                bold: true,
+                                style: {
+                                    run: {
+                                        bold: true,
+                                    }
 
-        // const buffer = await new Promise((resolve, reject) => {
-        //     const stream = docx.generate();
-        //     const chunks = [];
-        //     stream.on('data', (chunk) => chunks.push(chunk));
-        //     stream.on('end', () => resolve(Buffer.concat(chunks)));
-        //     stream.on('error', (error) => reject(error));
-        // });
+                                },
+                            },
+                            {
+                                level: 3,
+                                format: "upperLetter",
+                                text: "%4)",
+                                alignment: AlignmentType.START,
+                                style: {
 
-        // // Save the generated document to a file
-        // fs.writeFileSync(path.resolve('backend/docfiles', 'output.docx'), buffer);
-        const out = fs.createWriteStream('output.docx')
-        docx.generate(out);
+                                },
+                            },
+                        ],
+                    },
+                ],
+            },
+
+            sections: [
+                {
+                    headers: {
+                        default: new Header({
+                            children: [
+                                new Paragraph({
+                                    alignment: AlignmentType.RIGHT,
+                                    children: [
+                                        new TextRun({
+                                            text: "STRICTLY CONFIDENTIAL",
+                                            size: 24,
+                                            font: "Times New Roman",
+                                            color: '#FF0000'
+                                        }),
+                                    ],
+                                }),
+                                new Paragraph({
+                                    alignment: AlignmentType.RIGHT,
+                                    children: [
+                                        new TextRun({
+                                            text: "PRELIMINARY DRAFT SUBJECT TO REVISION",
+                                            size: 24,
+                                            font: "Times New Roman",
+                                            color: '#FF0000'
+                                        }),
+                                    ],
+                                }),
+                                new Paragraph({
+                                    alignment: AlignmentType.RIGHT,
+                                    children: [
+                                        new TextRun({
+                                            text: "SUBJECT TO FRE 408 AND CONFIDENTIALITY",
+                                            size: 24,
+                                            font: "Times New Roman",
+                                            color: '#FF0000'
+                                        }),
+                                    ],
+                                }),
+                            ],
+                        }),
+                    },
+                    children: [
+                        new Paragraph({
+                            spacing: {
+                                after: 2000,
+                            },
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: 'Blaxol Risensi LLP',
+                                    size: 36,
+                                    font: "Times New Roman",
+                                    color: '#000080',
+                                    spacing: {
+                                        line: 360
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: req.body.info.project_name,
+                                    size: 52,
+                                    font: "Times New Roman",
+                                    color: '#000080',
+                                    bold: true,
+                                    spacing: {
+                                        line: 360
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: 'Consulting Services Engagement Letter,',
+                                    size: 36,
+                                    font: "Times New Roman",
+                                    color: '#000080',
+                                    spacing: {
+                                        line: 360
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: 'Rules for Engagement',
+                                    size: 36,
+                                    font: "Times New Roman",
+                                    color: '#000080',
+                                    spacing: {
+                                        line: 360
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: `Proposal for: ${req.body.info.spoc}`,
+                                    size: 36,
+                                    font: "Times New Roman",
+                                    color: '#000080',
+                                    spacing: {
+                                        line: 360
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: req.body.info.rfp,
+                                    size: 36,
+                                    font: "Times New Roman",
+                                    color: '#000080',
+                                    spacing: {
+                                        line: 360
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: '® Blaxol Risensi LLP (A Member of Blaxol LLC)',
+                                    size: 36,
+                                    font: "Times New Roman",
+                                    color: '#000080',
+                                    spacing: {
+                                        line: 360
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: formatDate(req.body.info.date),
+                                    size: 36,
+                                    font: "Times New Roman",
+                                    color: '#000080',
+                                    spacing: {
+                                        line: 360
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: 'ENG - BLR',
+                                    size: 36,
+                                    font: "Times New Roman",
+                                    color: '#000080',
+                                    spacing: {
+                                        line: 360
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.RIGHT,
+                            children: [
+                                new ImageRun({
+                                    data: fs.readFileSync("Picture1.png"),
+                                    transformation: {
+                                        width: 184,
+                                        height: 184,
+                                    },
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.JUSTIFIED,
+                            children: [
+                                new TextRun({
+                                    text: letter_text,
+                                    size: 20,
+                                    font: "Times New Roman",
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+                                        after: 400
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.RIGHT,
+                            style: 'customStyle',
+                            children: [
+                                new TextRun({
+                                    text: '#30, 2 nd Floor, 4 th Main Road,',
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    // color : '#000080',
+                                    break: 1,
+                                    spacing: {
+                                        // line : 360,
+                                        // after : 200
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            alignment: AlignmentType.RIGHT,
+                            style: 'customStyle',
+                            children: [
+                                new TextRun({
+                                    text: 'Jayanagar 7 th Block, Bengaluru,',
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+                                        // after : 200
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            style: 'customStyle',
+                            alignment: AlignmentType.RIGHT,
+                            children: [
+                                new TextRun({
+                                    text: 'Karnataka, India 560070',
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            style: 'customStyle',
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: formatDate(req.body.info.date),
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    break: 1,
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+                                        after: 1400
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            style: 'customStyle',
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: `Attn: ${req.body.info.spoc}`,
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    break: 1,
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+                                        after: 400
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            style: 'customStyle',
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: `${req.body.info.client_name}`,
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    // color : '#000080',
+                                    break: 1,
+                                    spacing: {
+                                        // line : 360,
+                                        // after : 200
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            style: 'customStyle',
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: `${req.body.info.district}`,
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+                                        // after : 200
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            style: 'customStyle',
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: `${req.body.info.city}`,
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+                                        // after : 200
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            style: 'customStyle',
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: 'India 110070 ',
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+                                        after: 400
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph({
+                            style: 'customStyle',
+                            alignment: AlignmentType.LEFT,
+                            children: [
+                                new TextRun({
+                                    text: 'Subject: Letter of Intent / Declaration and Explanation',
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    underline: true,
+                                    // color : '#000080',
+                                    break: 1,
+                                    spacing: {
+                                        // line : 360,
+                                        after: 400
+                                    }
+                                }),
+                            ],
+                        }),
+                        ...req.body.info.letter.split('\n').map((line) => new Paragraph({
+                            style: 'customStyle',
+                            alignment: AlignmentType.JUSTIFIED,
+                            children: [
+                                new TextRun({
+                                    text: line,
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    break: 1,
+
+                                }),
+
+                            ],
+
+                        })),
+                        new Paragraph({ children: [new PageBreak()] }),
+                        ...result.flat(),
+                        new Paragraph({ children: [new PageBreak()] }),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Paragraph({
+                            style: "mystyling1",
+                            alignment: AlignmentType.CENTER,
+                            children: [
+                                new TextRun({
+                                    text: 'Exhibit A',
+                                    size: 32,
+                                    font: "Times New Roman",
+                                    bold: true,
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+                                        after: 400
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Paragraph({
+                            style: "mystyling1",
+                            alignment: AlignmentType.CENTER,
+                            children: [
+                                new TextRun({
+                                    text: 'Key Personnel Information',
+                                    size: 32,
+                                    font: "Times New Roman",
+                                    bold: true,
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+                                        after: 400
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Table({
+                            style: "mystyling1",
+                            alignment: AlignmentType.CENTER,
+                            width: {
+                                size: 10070,
+                                type: WidthType.DXA,
+                            },
+                            rows: [
+                                new TableRow({
+                                    children: columnHeadings.map(heading => (
+                                        new TableCell({
+                                            width: {
+                                                size: 10070,
+                                                type: WidthType.DXA,
+                                            },
+                                            children: [new Paragraph({
+                                                alignment: AlignmentType.CENTER,
+                                                children: [
+                                                    new TextRun({
+                                                        text: heading,
+                                                        size: 28,
+                                                        font: "Times New Roman",
+                                                        bold: true,
+                                                    }),
+                                                ],
+                                            })],
+                                        })
+                                    )),
+                                }),
+
+                                ...tableRowArray.flat()
+                            ],
+                        }),
+                        new Paragraph({ children: [new PageBreak()] }),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Paragraph({
+                            alignment: AlignmentType.CENTER,
+                            children: [
+                                new TextRun({
+                                    style: "mystyling1",
+                                    text: 'Fund Manager Declaration',
+                                    size: 32,
+                                    font: "Times New Roman",
+                                    bold: true,
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+                                        after: 400
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        ...result1.flat(),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Paragraph({
+                            style: "mystyling1",
+                            alignment: AlignmentType.RIGHT,
+                            children: [
+                                new TextRun({
+                                    text: 'FOR BLAXOL RISENSI LLP',
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    // bold : true,
+                                    // color : '#000080',
+                                    spacing: {
+                                        // line : 360,
+                                        after: 400
+                                    }
+                                }),
+                            ],
+                        }),
+                        new Paragraph('\n'),
+                        new Paragraph('\n'),
+                        new Paragraph({
+                            style: "mystyling1",
+                            alignment: AlignmentType.RIGHT,
+                            children: [
+                                new TextRun({
+                                    text: 'Managing Partner',
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    // bold : true,
+                                    // color : '#000080',
+                                    spacing: {
+
+                                        after: 400
+                                    }
+                                }),
+                            ],
+                        }),
+                    ],
+                },
+            ],
+        });
+
+        Packer.toBuffer(doc).then((buffer) => {
+            fs.writeFileSync("My Document2.docx", buffer);
+        });
+
         res.sendStatus(200);
 
     } catch (error) {
@@ -648,6 +937,18 @@ router.post('/invoice1', async (req, res) => {
         res.sendStatus(500);
     }
 });
+
+// To generate 
+
+router.post('/invoice2', async (req,res) => {
+    
+})
+
+
+
+
+
+
 
 router.post('/getrfdata', async (req, res) => {
     const rfpData = await RFP.findOne({ rfp: req.body.rfp });
