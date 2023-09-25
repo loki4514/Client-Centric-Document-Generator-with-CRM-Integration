@@ -3,7 +3,7 @@ import Subsection from './Subsesction'
 import SubsectionEdit from './SubsectionEdit'
 
 export default function Proposal1_last(props) {
-  const [input, setinput] = useState({heading : "", para : "" , sub : [],para1 : ""})
+  const [input, setinput] = useState({para : "" , sub : [],para1 : ""})
   const [showform,setshowform] = useState(false)
   const [AddSubHeadPara, setAddSubHeadPara] = useState(false)
   const [showeditform,setshoweditform] = useState(false)
@@ -12,7 +12,7 @@ export default function Proposal1_last(props) {
     const submit = (e) => {
         e.preventDefault();
         props.setagenda1([...props.agenda1,input]) // adding elements old and new array
-        setinput({heading : "", para : "", sub : [],para1 : ""}) // again
+        setinput({para : "", sub : [],para1 : ""}) // again
         setshowform(false)
     }
 
@@ -23,7 +23,7 @@ export default function Proposal1_last(props) {
     const deltesubmit = (e) => {
         e.preventDefault();
         setshowform(false)
-        setinput({heading : "", para : "", sub : [],para1 : ""});
+        setinput({ para : "", sub : [],para1 : ""});
     }
     const click = () => {
       setshowform(true)
@@ -82,10 +82,10 @@ export default function Proposal1_last(props) {
     {showform ?   <div className='subsection'>
             <form onSubmit={submit}>
             
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label htmlFor="exampleInputEmail1"></label>
                     <input type="text" name='heading' value={input.heading} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Heading" required />
-                </div>
+                </div> */}
                 <br></br>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1"></label>
@@ -132,7 +132,7 @@ export default function Proposal1_last(props) {
         <br/>
         {showeditform ? <SubsectionEdit input = {input} agenda1 = {props.agenda1} setagenda1 = {props.setagenda1} setinput = {setinput} i = {i} setshoweditform = {setshoweditform} /> : null}
         <div className="form-group" style={{ margin: '0 auto' }}>
-          <button type="submit" onClick={props.handleSubmit} className="btn btn-primary"> Generate Word Document</button>
+          <button type="submit" onClick={props.handleSubmit} id="generateButton" className="btn btn-primary"> Generate Word Document</button>
         </div>
         </>
     )

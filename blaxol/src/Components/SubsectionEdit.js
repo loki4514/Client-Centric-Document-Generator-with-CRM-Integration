@@ -1,13 +1,13 @@
 import React,{useState,useEffect} from 'react'
 
 export default function SubsectionEdit(props) {
-  const [input, setinput] = useState({ heading: "" , para : "", sub: [],para1: ""})
+  const [input, setinput] = useState({ para : "", sub: [],para1: ""})
   // console.log("hello everynyan",props.agenda[props.i])
   // const [index,setindex] = useState()
 
   useEffect(() => {
       setinput({
-        heading: props.agenda1[props.i].heading, 
+        // heading: props.agenda1[props.i].heading, 
         para: props.agenda1[props.i].para,
         sub : props.agenda1[props.i].sub,
         para1 : props.agenda1[props.i].para1
@@ -46,10 +46,10 @@ return (
      <div className='doc-body'>
           <form onSubmit={submit}>
               
-              <div className="form-group">
+              {/* <div className="form-group">
                   <label htmlFor="exampleInputEmail1"></label>
                   <input type="text" name='heading' value={input.heading} onChange={(e) => setinput({ ...input, heading: e.target.value })} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Heading" required />
-              </div>
+              </div> */}
               <div className="form-group">
                   <label htmlFor="exampleInputEmail1"></label>
                   <textarea type="text" name='para' value={input.para} onChange={(e) => setinput({ ...input, para: e.target.value })} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Heading" required />

@@ -35,7 +35,7 @@ export default function Proposal1(props) {
   const [info,setInfo] = useState(
     {client_name:"",project_name:"",spoc:"",
     rfp:"",date:"",district:"",
-    city:"",letter:""})
+    city:"",letter_half1:"",letter_half2:""})
   const [agenda,setagenda] = useState([])
   const [agenda1,setagenda1] = useState([])
   const [tables, settables] = useState([])

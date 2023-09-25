@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 
 export default function EditForm1(props) {
-    const [input, setinput] = useState({ heading: "" ,para : "", sub: []})
+    const [input, setinput] = useState({ heading: "" ,para : "", sub: [] , para1 : " "})
     // console.log("hello everynyan",props.agenda[props.i])
     const [index,setindex] = useState()
 
@@ -9,7 +9,8 @@ export default function EditForm1(props) {
         setinput({
           heading: props.agenda[props.i].heading,
           para : props.agenda[props.i].para,
-          sub : props.agenda[props.i].sub
+          sub : props.agenda[props.i].sub,
+          para1 : props.agenda[props.i].para1
         });
       }, [props.i, props.agenda]);
 
@@ -21,7 +22,7 @@ export default function EditForm1(props) {
             ...props.agenda.slice(props.i + 1),
         ];
         props.setagenda(updatedAgenda);
-        setinput({ heading: "" , para : "",sub: []});
+        setinput({ heading: "" , para : "",sub: [], para1 : " "});
         props.setshoweditform1(false);
     }
     
@@ -67,8 +68,15 @@ export default function EditForm1(props) {
                     </div>
                     </div>
                     
+                    
                 }):"nothing to print"}
             {console.log("inside the array of sub won't work",input.sub)}
+            <br></br>
+                <div className="form-group">
+                    <label htmlFor="exampleInputEmail1"></label>
+                    <textarea type="text" name='para1' value={input.para1} onChange={(e) => setinput({ ...input, para1: e.target.value })} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Paragraph" required />
+                </div>
+                <br></br>
                 {/* <div className="Letter" >
                     <textarea type="text" cols={100} rows={8} style={{ textAlign: 'justify' }}
                         className="form-control" name='para' value={input.para} onChange={onchange} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Body" />

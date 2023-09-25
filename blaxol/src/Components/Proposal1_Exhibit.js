@@ -2,114 +2,98 @@ import React, { useState } from 'react';
 import CustomTables from './CustomTables';
 
 export default function Proposal1_Exhibit(props) {
-  const [custcolumns, setcustcolumns] = useState(0);
-  const [showtable, setshowtable] = useState(false);
-  const [colnames, setColNames] = useState([]);
-  // const [props.tablecontent, setprops.tablecontent] = useState([]);
-  const [submitted, setSubmitted] = useState(false);
-  const [fieldhidden, setFieldHidden] = useState(true);
+  const [content, setconent] = useState({ name: "", designation: "", organisation: "", email: "", mobile: "" })
+    console.log(props.tablecontent)
+    const addRow = () => {
+        if (!content.name || !content.designation || !content.organisation || !content.email || !content.mobile) {
+            return; // Exit function if any required field is empty
+        }
 
-  const change = (e) => {
-    setcustcolumns(parseInt(e.target.value));
-  };
+        // Add content to the array
+        props.settablecontent([...props.tablecontent, content]);
 
-  const click = () => {
-    const initialColNames = Array.from({ length: custcolumns }, () => "");
-    setColNames(initialColNames);
-    setshowtable(true);
-  };
-  console.log(props.tablecontent)
+        // Reset content state
+        setconent({
+            name: '',
+            designation: '',
+            organisation: '',
+            email: '',
+            mobile: ''
+        });
+    };
 
-  const handleColumnNameChange = (e, i) => {
-    const updatedColNames = [...colnames];
-    updatedColNames[i] = e.target.value;
-    setColNames(updatedColNames);
-  };
-
-  const handleSubmitColumnNames = () => {
-    // Do something with the submitted column names (e.g., store in state)
-    console.log('Submitted Column Names:', colnames);
-    setSubmitted(true); // Mark the submission as complete
-    setFieldHidden(false);
-  };
+    const onchange = (e) => {
+        setconent({ ...content, [e.target.name]: e.target.value })
+    }
 
   return (
     <>
       <div>
         <br />
         <h2 style={{ textAlign: 'center' }}>Exhibit A Form</h2>
+        <br />
       </div>
-      <div className='exhibit'>
-        <div>
-          <input
-            type="number"
-            name="column"
-            value={custcolumns}
-            onChange={change}
-            placeholder="Enter the columns"
-            disabled={submitted}
-          />
-        </div>
-        <br />
-        <div>
-          <button onClick={click} disabled={submitted}>
-            Submit
-          </button>
-        </div>
-        <br />
-        <div>
-          {colnames.map((colname, i) => (
-            <input
-              key={i}
-              type="text"
-              value={colname}
-              onChange={(e) => handleColumnNameChange(e, i)}
-              placeholder={`Enter column name ${i + 1}`}
-              hidden={submitted}
-            />
-          ))}
-        </div>
-        <br />
-        <div>
-          <button onClick={handleSubmitColumnNames} disabled={submitted}>
-            Submit Column Names
-          </button>
-        </div>
-      </div>
-      <br></br>
-      {props.tablecontent.length > 0 && (
-  <table className="submitted-table">
-    <thead>
-      <tr className='table-header'>
-        {Object.keys(props.tablecontent[0]).map((name) => (
-          <th key={name}>{name}</th>
-        ))}
-      </tr>
-    </thead>
-    <tbody>
-      {props.tablecontent.map((submission, index) => (
-        <tr key={index}>
-          {Object.keys(submission).map((name) => (
-            <td key={name}>{submission[name]}</td>
-          ))}
-        </tr>
-      ))}
-    </tbody>
-  </table>
-)}
+      <table class="table">
+                <thead class="thead-light">
+                    <tr className='table-header'>
+                        <th scope="col">Name</th>
+                        <th scope="col">Designation</th>
+                        <th scope="col">Organisation</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Mobile</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {props.tablecontent.map((item) => (
+                        <tr className="table-header">
+                            {/* <td scope="row">{index + 1}</td> */}
+                            <td>{item.name}</td>
+                            <td>{item.designation}</td>
+                            <td>{item.organisation}</td>
+                            <td>{item.email}</td>
+                            <td>{item.mobile}</td>
+                        </tr>
 
-      <br></br>
+                    ))}
+                </tbody>
 
-      <br></br>
-      {showtable ? (
-        <CustomTables
-          setshowtable={setshowtable}
-          colnames={colnames}
-          setColNames={setColNames}
-          tablecontent={props.tablecontent}
-          settablecontent={props.settablecontent}
-        />
-      ) : null}
+            </table>
+
+
+
+            <br />
+            <form>
+                <table class="table">
+                    <thead class="thead-light">
+                        <tr className='table-header'>
+                            <th scope="col">Name</th>
+                            <th scope="col">Designation</th>
+                            <th scope="col">Organisation</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Mobile</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr className='table-header'>
+
+                            <td ><input type="text" name="name" value={content.name} onChange={onchange} placeholder="Enter Name" required /></td>
+                            <td><input type="text" name="designation" value={content.designation} onChange={onchange} placeholder="Enter Designation" required /></td>
+                            <td><input type="text" name="organisation" value={content.organisation} onChange={onchange} placeholder="Enter Organisation" required /></td>
+                            <td><input type="text" name="email" value={content.email} onChange={onchange} placeholder="Enter Email" required /></td>
+                            <td><input type="text" name="mobile" value={content.mobile} onChange={onchange} placeholder="Enter Mobile Number" /></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+
+                <div className='submit-buttons'>
+                    <button onClick={addRow}>Add Content</button>
+                    <br />
+                    {/* <button onClick={handle}> Submit Table</button> */}
+                </div>
+            </form>
     </>
   );
 }

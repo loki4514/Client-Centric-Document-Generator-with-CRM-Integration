@@ -2,13 +2,13 @@ import React,{useState} from 'react'
 import SubForm from './SubForm';
 
 export default function FieldEntry1(props) {
-    const [input, setinput] = useState({heading : "", para : "",sub : []})
+    const [input, setinput] = useState({heading : "", para : "",sub : [],para1 : " "})
     const [AddSubHeadPara, setAddSubHeadPara] = useState(false)
 
     const submit = (e) => {
         e.preventDefault();
         props.setagenda([...props.agenda,input]) // adding elements old and new array
-        setinput({heading : "", para : "", sub : []}) // again
+        setinput({heading : "", para : "", sub : [], para1 : " "}) // again
         props.setshowform1(false)
     }
 
@@ -19,7 +19,7 @@ export default function FieldEntry1(props) {
     const deltesubmit = (e) => {
         e.preventDefault();
         props.setshowform1(false)
-        setinput({heading : "",para : "", sub : []});
+        setinput({heading : "",para : "", sub : [] , para1 : " " });
     }
 
     return (
@@ -46,6 +46,12 @@ export default function FieldEntry1(props) {
                     </div>
                 }):null}
                 <br/>
+                <div className="form-group">
+                    <label htmlFor="exampleInputEmail1"></label>
+                    <textarea type="text" name='para1' value={input.para1} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Paragraph" required />
+                </div>
+                <br/>
+                <br/>
                 <br/>
                 {AddSubHeadPara ? <SubForm input = {input} setinput = {setinput} setAddSubHeadPara = {setAddSubHeadPara} /> : null }
                 {console.log('AddSubHeadPara:', AddSubHeadPara)}
@@ -53,8 +59,8 @@ export default function FieldEntry1(props) {
                 <div className='form-group'>
                 <button type="button" onClick={() => setAddSubHeadPara(true)} className="btn btn-primary">Add Subheading and SubPara</button>
                 
-                <br/>
-
+                
+                <br />
                 <div className='form-group'>
                 <button type="submit" className="btn btn-primary">Submit</button>
                 </div>

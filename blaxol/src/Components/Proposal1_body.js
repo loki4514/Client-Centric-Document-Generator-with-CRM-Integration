@@ -97,6 +97,7 @@ export default function Proposal1_body(props) {
           <br/>
         </div>})  : null}</h4>
         </div>
+        <p>{item.para1?item.para1:null}</p>
         <br/>
         
         <button style={{backgroundColor : '#A2FF86'}} onClick={() => edit_item(i)}>Edit</button>

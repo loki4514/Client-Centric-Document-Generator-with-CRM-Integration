@@ -3,6 +3,8 @@ const router = express.Router();
 const RFP = require('../models/RFP')
 const fs = require('fs');
 const path = require('path');
+const { saveAs } = require("file-saver");
+// const { Packer } = require('docx');
 
 const { AlignmentType, Document, Packer, Paragraph, TextRun, Header,
     Table, PageBreak, TableCell, TableRow, WidthType, ImageRun, LevelFormat } = require("docx");
@@ -37,9 +39,10 @@ router.post('/invoice1', async (req, res) => {
 
     try {
         const letter_text = `This proposal and contract are the property of Blaxol Risensi LLP (“Blaxol”) and must not be disclosed outside the family of ${req.body.info.client_name} or be duplicated, used, or disclosed—in whole or in part—for any purpose other than to evaluate this proposal. If a contract is awarded to Blaxol as a result of, or in connection with, this proposal, the Promoters shall have the right to duplicate, use, or disclose the data to the extent provided in the resulting contract and subject to the limitations of the Privacy Policy and other applicable bylaws. This proposal contains trade secrets and proprietary commercial or financial information, and information of a personal nature that is exempt from disclosure under OPRAA and other applicable laws.Accordingly, no portion of this document should be released without consulting BLAXOL. This information is contingent on the Parties reaching mutually agreeable terms and conditions and upon acceptance of any limitations described herein`
-        
+
 
         const columnHeadings = ["Name", "Designation", "Organisation", "Email", "Mobile"];
+        const columnHeadings1 = ["Activity", "Timeline", "Professional Fees", "Reimbursement", "Government Fees"];
         const result = req.body.agenda.map(item => {
             const children = []
 
@@ -106,6 +109,25 @@ router.post('/invoice1', async (req, res) => {
                     }
                 });
             }
+            if (item.para1) {
+                children.push(...item.para1.split('\n').map(line => new Paragraph({
+                    alignment: AlignmentType.JUSTIFIED,
+                    spacing: {
+                        line: 360
+                    },
+                    // style : "wellSpaced",
+                    children: [
+                        new TextRun({
+                            text: line,
+                            size: 24,
+                            font: "Times New Roman",
+                            spacing: {
+                                line: 360
+                            }
+                        }),
+                    ],
+                })));
+            }
 
             children.push(new Paragraph("\n"))
 
@@ -144,7 +166,7 @@ router.post('/invoice1', async (req, res) => {
                             style: "wellSpaced",
                             alignment: AlignmentType.JUSTIFIED,
                             numbering: {
-                                level: 2,
+                                level: 21,
                                 reference: "my-crazy-numbering",
                             },
                             children: [
@@ -195,10 +217,74 @@ router.post('/invoice1', async (req, res) => {
 
 
 
-        const tableRowArray = rowcontent.map(content => (
+        let table1;
+        if (req.body.tables.length > 0) {
+            table1 = new Table({
+                style: "mystyling1",
+                alignment: AlignmentType.CENTER,
+                width: {
+                    size: 10070,
+                    type: WidthType.DXA,
+                },
+                rows: [
+                    new TableRow({
+                        children: columnHeadings1.map((heading) =>
+                            new TableCell({
+                                width: {
+                                    size: 10070,
+                                    type: WidthType.DXA,
+                                },
+                                children: [
+                                    new Paragraph({
+                                        alignment: AlignmentType.CENTER,
+                                        children: [
+                                            new TextRun({
+                                                text: heading,
+                                                size: 28,
+                                                font: "Times New Roman",
+                                                bold: true,
+                                            }),
+                                        ],
+                                    }),
+                                ],
+                            })
+                        ),
+                    }),
+                    ...req.body.tables.map((content) =>
+                        new TableRow({
+                            children: Object.values(content).map((text) =>
+                                new TableCell({
+                                    width: {
+                                        size: 10070,
+                                        type: WidthType.DXA,
+                                    },
+                                    children: [
+                                        new Paragraph({
+                                            alignment: AlignmentType.CENTER,
+                                            children: [
+                                                new TextRun({
+                                                    text: text,
+                                                    size: 26,
+                                                    font: "Times New Roman",
+                                                }),
+                                            ],
+                                        }),
+                                    ],
+                                })
+                            ),
+                        })
+                    ),
+                ],
+            });
+        }
+
+
+        // console.log(table1);
+
+        const tableRowArray = req.body.tablecontent.map(content => (
             new TableRow({
-                children: content.map((text, index) => (
-                    console.log(index),
+                children: Object.values(content).map((index, text) => (
+                    // console.log(index),
                     new TableCell({
                         width: {
                             size: 10070,
@@ -573,7 +659,7 @@ router.post('/invoice1', async (req, res) => {
                             alignment: AlignmentType.RIGHT,
                             children: [
                                 new ImageRun({
-                                    data: fs.readFileSync("Picture1.png"),
+                                    data: fs.readFileSync(path.resolve('backend/docfiles', 'Picture1.png')),
                                     transformation: {
                                         width: 184,
                                         height: 184,
@@ -762,7 +848,27 @@ router.post('/invoice1', async (req, res) => {
                                 }),
                             ],
                         }),
-                        ...req.body.info.letter.split('\n').map((line) => new Paragraph({
+                        ...req.body.info.letter_half1.split('\n').map((line) => new Paragraph({
+                            style: 'customStyle',
+                            alignment: AlignmentType.JUSTIFIED,
+                            children: [
+                                new TextRun({
+                                    text: line,
+                                    size: 24,
+                                    font: "Times New Roman",
+                                    break: 1,
+
+                                }),
+
+                            ],
+
+                        })),
+                        new Paragraph('\n'),
+                        table1,
+
+
+                        new Paragraph('\n'),
+                        ...req.body.info.letter_half2.split('\n').map((line) => new Paragraph({
                             style: 'customStyle',
                             alignment: AlignmentType.JUSTIFIED,
                             children: [
@@ -924,12 +1030,47 @@ router.post('/invoice1', async (req, res) => {
                 },
             ],
         });
+        const mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+        const fileName = "GeneratedDocument.docx";  // Define the desired filename
+        
 
         Packer.toBuffer(doc).then((buffer) => {
-            fs.writeFileSync("My Document2.docx", buffer);
+            fs.writeFile("Output.docx", buffer, (err) => {
+                if (err) {
+                    console.error(err);
+                    res.sendStatus(500);
+                    return;
+                }
+        
+                const filePath = path.resolve('Output.docx');
+                console.log(filePath); // Make sure the file path is correct
+        
+                // At this point, you can try sending the file to the client
+                res.sendFile(filePath, 'My Document1.docx', (err) => {
+                    if (err) {
+                        console.error(err);
+                        res.sendStatus(500);
+                    } else {
+                        console.log("File sent successfully");
+                    }
+                });
+            });
         });
+        // Packer.toBlob(doc).then(blob => {
+        //     // Use FileSaver.js to trigger the download
+        //     saveAs(blob, "sample.docx");
 
-        res.sendStatus(200);
+//         Packer.toBlob(doc).then(blob => {
+//             const docblob = blob.slice(0, blob.size, mimeType);
+// // Save the file using saveAs from the file-saver package
+//             saveAs(docblob, fileName);
+// });
+            
+        // });
+
+  // Create a Blob containing the Document instance and the mimeType
+        
+        
 
     } catch (error) {
         console.log('Error generating document:', error);
@@ -940,8 +1081,8 @@ router.post('/invoice1', async (req, res) => {
 
 // To generate 
 
-router.post('/invoice2', async (req,res) => {
-    
+router.post('/invoice2', async (req, res) => {
+
 })
 
 
