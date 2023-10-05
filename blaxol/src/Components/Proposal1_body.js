@@ -86,18 +86,18 @@ export default function Proposal1_body(props) {
         <div>
         <h2> {item.heading}</h2>
         <br></br>
-        <p>{item.para?item.para:null}</p>
+        <p style={{ whiteSpace: 'pre-line' }}>{item.para ? item.para : null}</p>
         <br>
         </br>
         <h4>{item.sub? item.sub.map((subitem) => {
          return <div>
           <h3>{subitem.heading}</h3>
           <br></br>
-          <p style={{fontWeight : "lighter"}}>{subitem.para}</p>
+          <p style={{fontWeight : "lighter" ,  whiteSpace: 'pre-line' }}>{subitem.para}</p>
           <br/>
         </div>})  : null}</h4>
         </div>
-        <p>{item.para1?item.para1:null}</p>
+        <p style={{ whiteSpace: 'pre-line' }} >{item.para1?item.para1:null}</p>
         <br/>
         
         <button style={{backgroundColor : '#A2FF86'}} onClick={() => edit_item(i)}>Edit</button>

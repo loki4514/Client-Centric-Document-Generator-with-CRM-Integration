@@ -20,7 +20,7 @@ export default function Proposal2(props) {
       change = {change} tables1 = {tables1} settables1 = {settables1}/>
   }
   else if (page === 2){
-    return <Project_estimate_exhibit tablecontent1 = {tablecontent1} settablecontent1 = {settablecontent1} />
+    return <Project_estimate_exhibit tablecontent1 = {tablecontent1} settablecontent1 = {settablecontent1} handleSubmit = {handleSubmit} />
   }
   }
 
@@ -53,6 +53,14 @@ export default function Proposal2(props) {
     }) 
     console.log(data)
     if (response.ok) {
+      const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Output1.docx';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
       props.showAlert('Successfully generated the document.', 'success');
       window.location.reload()
       // You may handle the response data here if needed

@@ -92,6 +92,13 @@ export default function Project_estimate_exhibit(props) {
                 </div>
             </form>
 
+            <div className="form-group" style={{ margin: '0 auto' }}>
+          <button type="submit" onClick={props.handleSubmit} id="generateButton" className="btn btn-primary"> Generate Word Document</button>
+        </div>
+
+
+
+
 
         </div>
     )

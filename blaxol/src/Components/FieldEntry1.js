@@ -2,13 +2,13 @@ import React,{useState} from 'react'
 import SubForm from './SubForm';
 
 export default function FieldEntry1(props) {
-    const [input, setinput] = useState({heading : "", para : "",sub : [],para1 : " "})
+    const [input, setinput] = useState({heading : "", para : "",sub : [],para1 : ""})
     const [AddSubHeadPara, setAddSubHeadPara] = useState(false)
 
     const submit = (e) => {
         e.preventDefault();
         props.setagenda([...props.agenda,input]) // adding elements old and new array
-        setinput({heading : "", para : "", sub : [], para1 : " "}) // again
+        setinput({heading : "", para : "", sub : [], para1 : ""}) // again
         props.setshowform1(false)
     }
 
@@ -19,7 +19,7 @@ export default function FieldEntry1(props) {
     const deltesubmit = (e) => {
         e.preventDefault();
         props.setshowform1(false)
-        setinput({heading : "",para : "", sub : [] , para1 : " " });
+        setinput({heading : "",para : "", sub : [] , para1 : "" });
     }
 
     return (
@@ -48,7 +48,7 @@ export default function FieldEntry1(props) {
                 <br/>
                 <div className="form-group">
                     <label htmlFor="exampleInputEmail1"></label>
-                    <textarea type="text" name='para1' value={input.para1} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Paragraph" required />
+                    <textarea type="text" name='para1' value={input.para1} onChange={onchange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Word Document Paragraph 2" required />
                 </div>
                 <br/>
                 <br/>
