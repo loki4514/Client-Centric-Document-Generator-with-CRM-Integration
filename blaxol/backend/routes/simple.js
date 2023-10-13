@@ -237,7 +237,7 @@ router.post('/invoice1', async (req, res) => {
                 },
                 rows: [
                     new TableRow({
-                        children: columnHeadings1.map((heading) =>
+                        children: Object.keys(req.body.tables[0]).map((heading) =>
                             new TableCell({
                                 width: {
                                     size: 10070,
@@ -866,6 +866,7 @@ router.post('/invoice1', async (req, res) => {
                             ],
                         }),
                         new Paragraph("\n"),
+                        new Paragraph({ children: [new PageBreak()] }),
                         new Paragraph({
                             alignment: AlignmentType.RIGHT,
                             style: 'customStyle',
@@ -1028,7 +1029,7 @@ router.post('/invoice1', async (req, res) => {
                             alignment: AlignmentType.LEFT,
                             children: [
                                 new TextRun({
-                                    text: 'Subject: Letter of Intent / Declaration and Explanation',
+                                    text: req.body.info.project_subject,
                                     size: 24,
                                     font: font_general,
 

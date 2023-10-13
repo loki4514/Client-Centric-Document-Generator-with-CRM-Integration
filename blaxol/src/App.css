@@ -37,10 +37,17 @@
   }
 }
 .alert {
-  position: relative;
-  z-index: 1;
-  top: 2rem;
-  height: '50px'
+  position: fixed;
+  z-index: 99999;
+  top: 3.8rem;
+  margin-left: 17.5rem;
+  
+  justify-content: center;
+  align-items: center;
+}
+
+h2 {
+  margin-top : 50px;
 }
 
 .container-admin {
@@ -337,3 +344,17 @@ textarea{
 .submitted-table th {
   background-color: #f2f2f2;
 }
+
+.project-subject {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.project-subject label {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+.project-subject select {
+  width: 25rem;
+}
+

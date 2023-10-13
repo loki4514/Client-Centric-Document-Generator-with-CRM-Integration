@@ -3,37 +3,43 @@ import LetterTable from './LetterTable'
 
 export default function Proposal1_letter(props) {
 
-  const [content, setconent] = useState({ activity: "", timeline: "", prof_fee: "", reimbursment_fee: "", gov_fee: "" })
-  const [sample, setsample] = useState()
+  // const [content, setconent] = useState({ activity: "", timeline: "", prof_fee: "", reimbursment_fee: "", gov_fee: "" })
+  const [showTable, setShowTable] = useState(false);
 
-  const addRow = () => {
-    console.log("i have been called")
-    console.log(props.tables)
-    props.settables([...props.tables, content]);
-    setconent({
-      activity: '',
-      timeline: '',
-      prof_fee: '',
-      reimbursment_fee: '',
-      gov_fee: ''
-    });
-  };
-
-  const onchange = (e) => {
-    setconent({ ...content, [e.target.name]: e.target.value })
+  const handleButtonClick = () => {
+    setShowTable(true);
   }
 
+  // const addRow = () => {
+  //   console.log("i have been called")
+  //   console.log(props.tables)
+  //   props.settables([...props.tables, content]);
+  //   setconent({
+  //     activity: '',
+  //     timeline: '',
+  //     prof_fee: '',
+  //     reimbursment_fee: '',
+  //     gov_fee: ''
+  //   });
+  // };
+
+  // const onchange = (e) => {
+  //   setconent({ ...content, [e.target.name]: e.target.value })
+  // }
 
 
 
 
-  const deleteTable = (e, i) => {
-    e.preventDefault();
-    const updatedTables = [...props.tables];
-    updatedTables.splice(i, 1);
-    props.settables(updatedTables);
 
-  };
+
+
+  // const deleteTable = (e, i) => {
+  //   e.preventDefault();
+  //   const updatedTables = [...props.tables];
+  //   updatedTables.splice(i, 1);
+  //   props.settables(updatedTables);
+
+  // };
   return (
 
     <div>
@@ -43,14 +49,28 @@ export default function Proposal1_letter(props) {
       {/* <div className='container-admin'> */}
       <br />
       <h2 style={{ textAlign: "center" }}>Proposal Letter</h2>
-      <br></br>
-      {/* <div className='doc-buttons'>
-        <button onClick={click}>Add Tables</button>
-      </div> */}
+      
+      <div className='doc-buttons'>
+      <button onClick={handleButtonClick}>Add Tables</button>
+      <br />
+      </div>
+      {showTable && <LetterTable tables = {props.tables} settables = {props.settables} showAlert = {props.showAlert} />}
+      
+      <br />
       <form >
 
-
-
+      <div className='project-subject'>
+      <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">Select Letter Subject</label>
+            
+            <select className="form-control" id="exampleFormControlSelect1" name='project_subject' value={props.info.project_subject} onChange={props.change}>
+              <option value="">-- Select an Option --</option>
+              <option value="option1">Option 1</option>
+              <option value="option2">Option 2</option>
+              <option value="option3">Option 3</option>
+            </select>
+          </div>
+        </div>
         <br />
         <div className="Letter" >
           <textarea type="text" cols={100} rows={8} style={{ textAlign: 'justify' }}
@@ -60,7 +80,7 @@ export default function Proposal1_letter(props) {
         <br />
 
 
-        <div className='tables'>
+        {/* <div className='tables'>
         
           <div>
           <table className="table">
@@ -90,11 +110,11 @@ export default function Proposal1_letter(props) {
           </table>
           
         </div>
-      </div>
+      </div> */}
         <br />
 
 
-        <div>
+        {/* <div>
           <table class="table">
             <thead class="thead-light">
               <tr className='table-header'>
@@ -124,7 +144,7 @@ export default function Proposal1_letter(props) {
             <br />
 
           </div>
-        </div>
+        </div> */}
 
 
 

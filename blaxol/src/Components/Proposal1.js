@@ -19,7 +19,8 @@ export default function Proposal1(props) {
       return <Proposal1_FrontPage info = {info} handleSubmit = {handleSubmit} change = {change}/>
   }
   else if (page === 1){
-      return <Proposal1_letter info = {info} handleSubmit = {handleSubmit} change = {change} tables = {tables} settables = {settables}/>
+      return <Proposal1_letter info = {info} handleSubmit = {handleSubmit} change = {change} tables = {tables} 
+      showAlert = {props.showAlert} settables = {settables}/>
   }
   else if (page === 2){
     return <Proposal1_body info = {info} agenda = {agenda} setagenda = {setagenda} handleSubmit = {handleSubmit} change = {change}/>
@@ -34,8 +35,10 @@ export default function Proposal1(props) {
 
   const [info,setInfo] = useState(
     {client_name:"",project_name:"",spoc:"",
-    rfp:"",date:"",district:"",
-    city:"",letter_half1:"",letter_half2:""})
+    rfp:"",date: new Date().toISOString().split('T')[0],
+    district:"",
+    city:"",
+    project_subject : "", letter_half1:"", letter_half2:""})
   const [agenda,setagenda] = useState([])
   const [agenda1,setagenda1] = useState([])
   const [tables, settables] = useState([])
@@ -99,7 +102,7 @@ const change = async (e) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ rfp: value }), // Sends only the rfp value
+          body: JSON.stringify({ rfp: value.trim() }), // Sends only the rfp value
         });
   
         if (response.ok) {

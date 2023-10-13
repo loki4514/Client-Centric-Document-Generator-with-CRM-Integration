@@ -45,6 +45,7 @@ function App() {
 
     <NoteState>
         <Router>
+        {/* <Alert alert={alert} /> */}
           <Navbar />
           <Alert alert={alert} />
           <Routes>

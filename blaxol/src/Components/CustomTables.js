@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import EditLetterTable from './EditLetterTable';
+
 
 export default function CustomTables(props) {
+    const [showedit,setshowedit] = useState(false)
+    const [showbutton,setshowbutton] = useState(true)
     const [content, setContent] = useState(() => {
         const initialContent = {};
         props.colnames.forEach((colname) => {
@@ -10,11 +14,19 @@ export default function CustomTables(props) {
       });
 
     const onchange = (e) => {
+
         setContent({...content,[e.target.name]: e.target.value})
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         // Create a new content object with the current values
+        e.preventDefault();
+    //     const isEmpty = Object.values(content).some(value => value.trim() === '');
+    //     console.log(isEmpty)
+    //     if (isEmpty) {
+    //         alert('Please fill in all required fields');
+    //     return;
+    // }
         const newContent = {};
         Object.entries(content).forEach(([key, value]) => {
           if (value !== '') {
@@ -23,7 +35,7 @@ export default function CustomTables(props) {
         });
       
         // Add the new content object to the table content array
-        props.settablecontent((prevTableContent) => [...prevTableContent, newContent]);
+        props.settables((prevTableContent) => [...prevTableContent, newContent]);
       
         // Clear input fields
         const resetContent = {};
@@ -32,10 +44,25 @@ export default function CustomTables(props) {
         });
         setContent(resetContent);
       };
+    const handleSubmit1 = () => {
+       
+        setshowbutton(false)
+
+
+    }
+
+    const click1 = () => {
+        setshowedit(true)
+        console.log("i am clicking",showedit)
+
+    }
+
+    
 
     return (
         <>
-            <table className="table">
+        <form>
+            {showbutton && <table className="table">
                 <thead className="thead-light">
                     <tr className='table-header'>
                         {props.colnames.map((name) => {
@@ -51,19 +78,40 @@ export default function CustomTables(props) {
                                     <input
                                         type="text"
                                         name={name}
-                                        value={content[name] || ''}
+                                        value={content[name]}
                                         onChange={onchange}
                                         placeholder={`Enter ${name} ${index}`}
+                                        required
                                     />
                                 </td>
                             );
                         })}
                     </tr>
                 </tbody>
-            </table>
+            </table>}
+            </form>
+            {showbutton && <div className='exhibit'>
+            <button onClick={handleSubmit}>Add Content</button>
+            </div>}
+            <br/>
+            {showbutton &&<div className='exhibit'>
+            <button onClick={handleSubmit1}>Submit Table</button>
+            </div> }
+            
+            
+            {props.tables.length > 0 &&
             <div className='exhibit'>
-            <button onClick={handleSubmit}>Submit</button>
+            {!showbutton && <button onClick={click1}>Edit</button>} 
             </div>
+             }
+             {showedit ? <EditLetterTable
+            colnames={props.colnames}
+            setColNames={props.setColNames}
+            tables={props.tables}
+            settables={props.settables}
+            showedit = {showedit}
+            setshowedit = {setshowedit}
+            content = {content}/> : null}
         </>
     );
 }
