@@ -31,3 +31,26 @@ This project is implemented using the MERN stack:
 ## How to Use
 
 1. **Clone the Repository:**
+  
+
+   ```bash
+   git clone https://github.com/loki4514/Client-Centric-Document-Generator-with-CRM-Integration
+   cd blaxol
+   ```
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run both
+   ```
+   Open your browser and go to http://localhost:3000 to see the application.
+
+
+
+
+
+ 
