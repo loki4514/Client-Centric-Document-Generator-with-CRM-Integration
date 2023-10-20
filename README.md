@@ -27,6 +27,34 @@ This project is implemented using the MERN stack:
 - **React.js:** Frontend library for building the user interface.
 - **Node.js:** JavaScript runtime environment for executing server-side code.
 
+## Website Snapshorts
+
+![Screenshot (183)](https://github.com/loki4514/Client-Centric-Document-Generator-with-CRM-Integration/assets/80893814/c7d4bc6c-2e33-4152-8800-9759e4e0ec9b)
+
+
+![Screenshot (182)](https://github.com/loki4514/Client-Centric-Document-Generator-with-CRM-Integration/assets/80893814/9bbd6219-cd38-4d57-b5fd-923196758fea)
+
+
+![Screenshot (181)](https://github.com/loki4514/Client-Centric-Document-Generator-with-CRM-Integration/assets/80893814/833b8cc8-25a5-473f-99f6-05a45ce3fc8b)
+
+
+![Screenshot (180)](https://github.com/loki4514/Client-Centric-Document-Generator-with-CRM-Integration/assets/80893814/77a969df-1ab6-4a6b-afb2-4d56048ddb74)
+
+
+![Screenshot (184)](https://github.com/loki4514/Client-Centric-Document-Generator-with-CRM-Integration/assets/80893814/ad1fa841-97aa-430b-a300-fd407766f42d)
+
+
+![Screenshot (185)](https://github.com/loki4514/Client-Centric-Document-Generator-with-CRM-Integration/assets/80893814/5a2d021f-0cdc-4e7f-97dc-959d152bda31)
+
+
+![Screenshot (186)](https://github.com/loki4514/Client-Centric-Document-Generator-with-CRM-Integration/assets/80893814/59148afe-170d-4d3c-8ea0-9ba398e19809)
+
+
+
+
+
+
+
 
 ## How to Use
 
