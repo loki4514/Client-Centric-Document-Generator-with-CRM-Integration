@@ -1236,12 +1236,20 @@ router.post('/invoice1', async (req, res) => {
             const filePath = path.resolve('Output.docx');
             res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
             res.setHeader('Content-Disposition', 'attachment; filename=Output.docx');
-
             // Send the buffer as the response
             res.send(buffer);
             // res.send(200)
 
         });
+
+        console.log(path.join(__dirname, 'backend', 'routes', 'Picture1.png'))
+        // Packer.toBuffer(doc).then((buffer) => {
+        //     const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+        //     const blobUrl = URL.createObjectURL(blob);
+        
+        //     // Return the Blob URL
+        //     res.send(blobUrl);
+        // });
         // Packer.toBlob(doc).then(blob => {
         //     // Use FileSaver.js to trigger the download
         //     saveAs(blob, "sample.docx");

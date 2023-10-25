@@ -122,8 +122,9 @@ export default function Proposal1_last(props) {
                 <button type="submit" className="btn btn-primary">Submit</button>
                 </div>
                 <br/>
+
                 <div className='form-group'>
-                <button className="btn btn-danger" onClick={deltesubmit}>Delete Section</button>
+                  <button className="btn btn-danger" onClick={deltesubmit}>Delete Section</button>
                 </div>
             </div>
             </form>
@@ -131,9 +132,16 @@ export default function Proposal1_last(props) {
         <br/>
         <br/>
         {showeditform ? <SubsectionEdit input = {input} agenda1 = {props.agenda1} setagenda1 = {props.setagenda1} setinput = {setinput} i = {i} setshoweditform = {setshoweditform} /> : null}
+        {/* <div className="form-group" style={{ margin: '0 auto' }}>
+          <button onClick={props.handleSubmit1}>Preview Document</button>
+
+        </div> */}
+        <br>
+        </br>
         <div className="form-group" style={{ margin: '0 auto' }}>
           <button type="submit" onClick={props.handleSubmit} id="generateButton" className="btn btn-primary"> Generate Word Document</button>
         </div>
+
         </>
     )
 }
